@@ -1,15 +1,16 @@
 # <p align = "center">{ reprograma } </p>
-## <p align = "center">Xodó Bank</p>
-
 <p align = "center">
-   <img src="https://img.shields.io/badge/autor-luanalessa-FF5757?style=flat-square" />
-   <img src="https://img.shields.io/badge/semana-01-FF5757?style=flat-square" />
-   <img src="https://img.shields.io/github/languages/count/luanalessa/ts-backend-template?color=FF5757&style=flat-square" />
+<img width="300" alt="10 xodós" 2024-07-13 at 20 30 47" src="https://github.com/user-attachments/assets/ff2d0c1b-4970-4d12-9ee6-8b4c4d88933e">
+</p>
+<p align = "center">
+   <img src="https://img.shields.io/badge/autor-luanalessa-BFBF5E?style=flat-square" />
+   <img src="https://img.shields.io/badge/semana-01-BFBF5E?style=flat-square" />
+   <img src="https://img.shields.io/github/languages/count/luanalessa/ts-backend-template?color=BFBF5E&style=flat-square" />
 </p>
 
-<p align = "center">
-  <img width="300px" src="https://github.com/luanalessa/on36-ijs-xodo-bank/assets/72531277/55e783ae-7df7-4af0-aa80-d1d507d5f2fb" />
-</p>
+# <p align = "center">Xodó Bank</p>
+
+
 
 <br>
 
@@ -124,7 +125,7 @@ Loan pode ser:
 <br>
 
 <p align = "center">
-<img alt="Capturar" src="https://github.com/user-attachments/assets/b9fa556c-ee58-4d66-9fcc-f58720310d11">
+<img alt="348445141-292e02b4-5409-412d-bb10-4a62dc7ec7d2" src="https://github.com/user-attachments/assets/d0fae02a-e88e-4235-96f6-aff3d9e86013">
 </p>
 
 <br> 
