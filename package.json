@@ -1,0 +1,33 @@
+{
+  "name": "on36-ijs-xodobank",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint -p tsconfig.json",
+    "lint:fix": "tslint --fix -p tsconfig.json",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luanalessa/on36-ijs-xodobank.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luanalessa/on36-ijs-xodobank/issues"
+  },
+  "homepage": "https://github.com/luanalessa/on36-ijs-xodobank#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "^5.5.3"
+  }
+}
