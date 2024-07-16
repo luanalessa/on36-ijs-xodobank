@@ -26,23 +26,17 @@ export class CheckingAccount extends Account {
     }
 
     public applyMaintenanceFee() {
-        console.log('balance: ' + this.balance);
         if (this.balance < 0) {
             const maintenanceFee = Math.abs(
                 (this.balance * this.maintenanceFee) / 100,
             );
-            console.log('fee: ' + maintenanceFee);
-
             const transaction = new Transaction(
                 maintenanceFee,
                 TransactionType.maintenanceFee,
                 this.balance,
             );
             this.withdraw(transaction);
-            console.log('balance: ' + this.balance);
-
             this.outcomes.push(transaction);
-            console.info(`Maintenance fee of ${this.maintenanceFee} applied.`);
         }
     }
 }
