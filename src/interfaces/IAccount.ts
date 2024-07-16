@@ -1,4 +1,4 @@
-import { Transaction } from "../model/Transaction";
+import { Transaction } from '../model/Transaction';
 
 export interface IAccount {
     deposit(transaction: Transaction): void;

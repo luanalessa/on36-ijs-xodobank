@@ -5,4 +5,5 @@ export enum TransactionType {
     payment,
     exchange,
     interest,
+    maintenanceFee,
 }

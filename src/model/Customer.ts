@@ -4,7 +4,7 @@ import { Account } from './Account';
 export class Customer extends User {
     private monthIncome: number;
     private monthOutcome: number;
-    private accountList: Account[];
+    protected _accountList: Account[];
 
     constructor(
         name: string,
@@ -20,6 +20,14 @@ export class Customer extends User {
         super(name, nationalId, address, phone, dateOfBirth, email, password);
         this.monthIncome = monthIncome;
         this.monthOutcome = monthOutcome;
-        this.accountList = [];
+        this._accountList = [];
+    }
+
+    get accountList(): Account[] {
+        return this._accountList;
+    }
+
+    set accountList(account: Account) {
+        this._accountList.push(account);
     }
 }
