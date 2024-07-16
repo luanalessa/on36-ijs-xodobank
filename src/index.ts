@@ -1,20 +1,9 @@
-import { Bank } from "./model/Bank";
-import { Manager } from "./model/Manager";
-import { Customer } from "./model/Customer";
-import { SavingAccount } from "./model/SavingAccount";
-import { CheckingAccount } from "./model/CheckingAccount";
-import { Transaction } from "./model/Transaction";
-import { TransactionType } from "./enum/TransactionType";
-
-const bank = new Bank(
-    'Xodó Bank',
-    'Rua das Margaridas, 123',
-    'contato@xodobank.com',
-    '(00) 1234-5678',
-);
-bank.releaseCurrency('Xodó', 1.0, 0.03);
-
-const currency = bank.getCurrency();
+import { Manager } from './model/Manager';
+import { Customer } from './model/Customer';
+import { SavingAccount } from './model/SavingAccount';
+import { CheckingAccount } from './model/CheckingAccount';
+import { Transaction } from './model/Transaction';
+import { TransactionType } from './enum/TransactionType';
 
 const manager = new Manager(
     'Lessa',
@@ -25,53 +14,68 @@ const manager = new Manager(
     'lessa@xodobank.com',
     'senha123',
 );
-const customer = new Customer(
-    'Otávio',
+
+const customer1 = new Customer(
+    'Customer One',
     '987654321',
-    'Rua 13, 0',
-    '(00) 5555-5555',
-    new Date(),
-    'otavio@gmail.com',
-    'senha456',
+    'Customer One Address',
+    '987-654-3210',
+    new Date('1990-01-01'),
+    'customer1@example.com',
+    'password1',
     5000,
     3000,
 );
-if (currency) {
-    const savingAccount = new SavingAccount(
-        manager,
-        customer,
-        currency,
-        '123456789',
-        '001',
-        1000,
-    );
 
-    const t = new Transaction(
-        500,
-        TransactionType.transfer,
-    );
+const customer2 = new Customer(
+    'Customer Two',
+    '123456789',
+    'Customer Two Address',
+    '123-456-7890',
+    new Date('1992-01-01'),
+    'customer2@example.com',
+    'password2',
+    6000,
+    2000,
+);
 
-    savingAccount.deposit(t);
-    savingAccount.calculateInterest();
-    console.log(`Saldo após juros: ${savingAccount.balance}`);
+const checkingAccount = new CheckingAccount(customer1, '0001', 'Agency1');
 
-    const checkingAccount = new CheckingAccount(
-        manager,
-        customer,
-        currency,
-        '987654321',
-        '002',
-        2000,
-    );
-    const transaction = new Transaction(
-        500,
-        TransactionType.transfer,
-        savingAccount,
-        checkingAccount,
-    );
-    transaction.record(new Date());
+const savingAccount = new SavingAccount(customer2, '0003', 'Agency1');
 
-    console.log(
-        `Transação realizada: ${transaction.amount} ${currency.name} transferidos de ${transaction?.sender} para ${transaction.receiver}`,
-    );
-}
+const depositTransaction = new Transaction(
+    150,
+    TransactionType.deposit,
+    checkingAccount.balance,
+);
+
+const depositTransaction1 = new Transaction(
+    100,
+    TransactionType.deposit,
+    savingAccount.balance,
+);
+
+const withdrawTransaction = new Transaction(
+    10,
+    TransactionType.withdraw,
+    checkingAccount.balance,
+);
+const transferTransaction = new Transaction(
+    30,
+    TransactionType.transfer,
+    checkingAccount.balance,
+    checkingAccount,
+    savingAccount,
+);
+
+checkingAccount.deposit(depositTransaction);
+savingAccount.deposit(depositTransaction1);
+checkingAccount.withdraw(withdrawTransaction);
+checkingAccount.transfer(transferTransaction);
+
+checkingAccount.applyMaintenanceFee();
+
+savingAccount.calculateInterest();
+
+console.log('Checking Account Balance:', checkingAccount.balance);
+console.log('Saving Account Balance:', savingAccount.balance);
