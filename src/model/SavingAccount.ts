@@ -11,16 +11,16 @@ export class SavingAccount extends Account {
 
     constructor(customer: Customer, accountNumber: string, agency: string) {
         super(customer, accountNumber, agency);
-        this.interestRate = 0.034;
+        this.interestRate = 0.01;
     }
 
     public calculateInterest(): void {
         const interestRate = this._balance * this.interestRate;
-        this._balance += interestRate;
         const transaction = new Transaction(
             interestRate,
             TransactionType.interest,
         );
+        this._balance += interestRate;
         transaction.record(new Date(), this.balance);
     }
 

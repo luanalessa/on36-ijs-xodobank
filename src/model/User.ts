@@ -1,6 +1,8 @@
+import { Document } from '../utils/Document';
+
 export abstract class User {
     private name: string;
-    private nationalId: string;
+    private _idNumber: Document;
     private address: string;
     private phone: string;
     private dateOfBirth: Date;
@@ -16,12 +18,16 @@ export abstract class User {
         email: string,
         password: string,
     ) {
+        this._idNumber = new Document(nationalId);
         this.name = name;
-        this.nationalId = nationalId;
         this.address = address;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
+    }
+
+    get idNumber(): Document {
+        return this._idNumber;
     }
 }
