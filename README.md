@@ -33,17 +33,17 @@ Sabendo disso, a comunidade da { reprograma } decidiu criar um banco comunitári
 
 ## ✅ Checklist Serviços
 
-- [x] Crédito para financiamento de empreendimentos solidários.
-- [x] Crédito para consumo pessoal e familiar, sem juros.
-- [x] Cartão de crédito popular solidário.
-- [x] Abertura e extrato de conta corrente.
+- [ ] Crédito para financiamento de empreendimentos solidários.
+- [ ] Crédito para consumo pessoal e familiar, sem juros.
+- [ ] Cartão de crédito popular solidário.
+- [ ] Abertura e extrato de conta corrente.
 - [x] Depósito em conta corrente.
 - [x] Saque avulso ou com cartão magnético.
-- [x] Pagamento de contas (água, luz, telefone etc.).
-- [x] Recebimento de aposentadorias e outros valores governamentais
+- [ ] Pagamento de contas (água, luz, telefone etc.).
+- [ ] Recebimento de aposentadorias e outros valores governamentais
 - [x] Gerentes da conta
-- [x] Prestação de contas diário e semanal para toda a comunidade
-- [x] Desafio extra: Moeda social circulante local.
+- [ ] Prestação de contas diário e semanal para toda a comunidade
+- [ ] Desafio extra: Moeda social circulante local.
 <br>
 
 ## 🚩 Diagrama de entidades e relacionamentos
