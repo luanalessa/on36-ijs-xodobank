@@ -17,10 +17,10 @@ export class Transaction {
         type: TransactionType,
         balance?: number,
         sender?: Account,
-        reciever?: Account,
+        receiver?: Account,
     ) {
         this._sender = sender;
-        this._receiver = reciever;
+        this._receiver = receiver;
         this._amount = amount;
         this.balance = balance;
         this.type = type;
