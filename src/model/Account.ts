@@ -1,13 +1,13 @@
-import { IAccount } from './../interfaces/IAccount';
+import { Operations } from '../interfaces/Operations';
 import { AccountStatus } from '../enum/AccountStatus';
 import { Customer } from './Customer';
 import { Transaction } from './Transaction';
 
-export abstract class Account implements IAccount {
-    protected customer: Customer;
+export abstract class Account implements Operations {
+    readonly customer: Customer;
 
-    protected accountNumber: string;
-    protected agency: string;
+    readonly accountNumber: string;
+    readonly agency: string;
 
     protected _balance: number;
     protected incomes: Transaction[];
@@ -15,7 +15,7 @@ export abstract class Account implements IAccount {
 
     public status: AccountStatus;
 
-    private creationDate: Date;
+    readonly creationDate: Date;
 
     constructor(customer: Customer, accountNumber: string, agency: string) {
         this.customer = customer;
@@ -27,12 +27,6 @@ export abstract class Account implements IAccount {
         this.outcomes = [];
         this.creationDate = new Date();
     }
-
-    get balance(): number {
-        return this._balance;
-    }
-
-    protected abstract validateTransaction(transaction: Transaction): boolean;
 
     public deposit(transaction: Transaction): void {
         if (this.status === AccountStatus.open && transaction.amount < 10) {
@@ -66,5 +60,11 @@ export abstract class Account implements IAccount {
                 transaction.receiver.deposit(transaction);
             }
         }
+    }
+
+    protected abstract validateTransaction(transaction: Transaction): boolean;
+
+    get balance(): number {
+        return this._balance;
     }
 }

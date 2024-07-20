@@ -43,8 +43,8 @@ const customerTwo = manager.createCustomer(
 );
 
 // Criando as contas dos respectivos clientes (abertura)
-const checkingAccount = bank.createCheckingAccount(customerOne);
-const savingAccount = bank.createSavingAccount(customerTwo);
+const checkingAccount = manager.createCheckingAccount(customerOne);
+const savingAccount = manager.createSavingAccount(customerTwo);
 
 // Realizando depósito para ativação das contas abertas
 const checkingAccountDepositTest = new Transaction(

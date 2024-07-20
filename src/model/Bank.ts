@@ -3,9 +3,10 @@ import { SavingAccount } from './SavingAccount';
 import { CheckingAccount } from './CheckingAccount';
 
 export class Bank {
+    private static instance: Bank;
     public name: string;
     public agency: string;
-    private totalAccounts: number;
+    public totalAccounts: number;
 
     constructor(name: string) {
         this.name = name;
@@ -13,21 +14,14 @@ export class Bank {
         this.totalAccounts = 0;
     }
 
-    createSavingAccount(customer: Customer): SavingAccount {
-        const num = this.accountNumberGenerator();
-        const account = new SavingAccount(customer, num, this.agency);
-        this.totalAccounts++;
-        return account;
+    public static getInstance(): Bank {
+        if (!Bank.instance) {
+            Bank.instance = new Bank(this.name);
+        }
+        return Bank.instance;
     }
 
-    createCheckingAccount(customer: Customer): CheckingAccount {
-        const num = this.accountNumberGenerator();
-        const account = new CheckingAccount(customer, num, this.agency);
-        this.totalAccounts++;
-        return account;
-    }
-
-    private accountNumberGenerator(): string {
+    public accountNumberGenerator(): string {
         const accountNumber = `${this.totalAccounts
             .toString()
             .padStart(4, '0')}`;

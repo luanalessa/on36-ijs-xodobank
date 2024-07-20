@@ -1,7 +1,5 @@
-import { Manager } from './Manager';
 import { Customer } from './Customer';
 import { Account } from './Account';
-import { Currency } from './Currency';
 import { Transaction } from './Transaction';
 import { TransactionType } from '../enum/TransactionType';
 import { AccountStatus } from '../enum/AccountStatus';
