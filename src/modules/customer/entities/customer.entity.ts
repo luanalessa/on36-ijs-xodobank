@@ -14,7 +14,7 @@ export class Customer extends User {
             customer.email,
             customer.password,
         );
-        
+
         this.managerId = managerId;
     }
 }

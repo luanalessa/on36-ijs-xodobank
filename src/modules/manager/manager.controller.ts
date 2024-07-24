@@ -22,4 +22,3 @@ export class ManagerController {
         return this.managerService.createCustomer(customer, managerId);
     }
 }
-

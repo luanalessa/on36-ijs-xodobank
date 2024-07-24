@@ -8,7 +8,7 @@ import * as path from 'path';
 
 @Injectable()
 export class ManagerServices {
-    private customerService: CustomerServices
+    private customerService: CustomerServices;
     protected readonly managerFilePath = path.join(
         __dirname,
         '..',
@@ -17,7 +17,6 @@ export class ManagerServices {
         'data',
         'manager.json',
     );
-
 
     constructor(customerService: CustomerServices) {
         this.customerService = customerService;
@@ -36,12 +35,12 @@ export class ManagerServices {
         );
     }
 
-
     getCustomersByManager(managerId: string) {
         try {
             const data = this.customerService.readCustomers();
             const customer = data.filter(
-                (customer) => customer.managerId === managerId)
+                (customer) => customer.managerId === managerId,
+            );
 
             return customer;
         } catch (err) {
@@ -56,12 +55,13 @@ export class ManagerServices {
         customers.push(newCustomer);
 
         const managers = this.readManagers();
-        const managerIndex = managers.findIndex( m => m.idNumber === managerId);
+        const managerIndex = managers.findIndex(
+            (m) => m.idNumber === managerId,
+        );
 
-        managers[managerIndex]["customersId"].push(customer.idNumber);
-        this.writeManager(managers)
+        managers[managerIndex]['customersId'].push(customer.idNumber);
+        this.writeManager(managers);
 
-        return  managers[managerIndex];
+        return managers[managerIndex];
     }
-
 }

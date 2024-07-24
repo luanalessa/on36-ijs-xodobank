@@ -5,11 +5,14 @@ import { ManagerServices } from 'src/modules/manager/services/manager.services';
 import { Manager } from 'src/modules/manager/entities/manager.entity';
 
 @Injectable()
-export class BankingServices  {
-    private customerService: CustomerServices
-    private managerService: ManagerServices
+export class BankingServices {
+    private customerService: CustomerServices;
+    private managerService: ManagerServices;
 
-    constructor(customerService: CustomerServices, managerService: ManagerServices) {
+    constructor(
+        customerService: CustomerServices,
+        managerService: ManagerServices,
+    ) {
         this.customerService = customerService;
         this.managerService = managerService;
     }
@@ -25,7 +28,7 @@ export class BankingServices  {
     }
 
     getManagerById(managerId: string) {
-        const data = this.managerService.readManagers();;
+        const data = this.managerService.readManagers();
         const manager = data.filter(
             (manager) => manager.idNumber === managerId,
         );

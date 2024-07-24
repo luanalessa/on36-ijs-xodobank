@@ -23,12 +23,8 @@ export class BankingController {
         return this.services.getManagerById(managerId);
     }
 
-    @Post("manager")
-    createManager(
-        @Body() manager: CreateUserDto,
-    ) {
+    @Post('manager')
+    createManager(@Body() manager: CreateUserDto) {
         return this.services.createManager(manager);
     }
-
 }
-

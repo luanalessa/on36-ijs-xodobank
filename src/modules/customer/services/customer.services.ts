@@ -14,7 +14,6 @@ export class CustomerServices {
         'customer.json',
     );
 
-
     public readCustomers(): Customer[] {
         const data = fs.readFileSync(this.customersFilePath, 'utf8');
         return JSON.parse(data) as Customer[];
