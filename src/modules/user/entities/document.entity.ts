@@ -4,8 +4,7 @@ export class Document {
 
     // Consider how you can block when it comes to a repeated document
     constructor(document: string) {
-        if(this.isValid(document))
-            this.id = this.cleanDocument(document)
+        if (this.isValid(document)) this.id = this.cleanDocument(document);
     }
 
     public isValid(doc: string): boolean | string {

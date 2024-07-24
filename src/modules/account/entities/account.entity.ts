@@ -1,5 +1,5 @@
-import { Transaction } from "src/modules/transaction/entities/transaction.entity";
-import { AccountStatus } from "../enum/account-status.enum";
+import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
+import { AccountStatus } from '../enum/account-status.enum';
 
 export abstract class Account {
     customerId: string;

@@ -1,4 +1,4 @@
-import { Account } from "./account.entity";
+import { Account } from './account.entity';
 
 export class SavingAccount extends Account {
     private interestRate: number;
