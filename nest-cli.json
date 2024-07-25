@@ -6,8 +6,8 @@
     "deleteOutDir": true,
     "assets": [
       {
-        "include": "data/*.json",
-        "outDir": "dist"
+        "include": "repository/data/*.json",
+        "outDir": "dist/"
       }
     ]
   }
