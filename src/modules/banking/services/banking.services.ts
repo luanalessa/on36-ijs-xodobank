@@ -1,34 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { CustomerRepository } from './../../../repository/customer.repository';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
-import { CustomerServices } from 'src/modules/customer/services/customer.services';
-import { ManagerServices } from 'src/modules/manager/services/manager.services';
 import { Manager } from 'src/modules/manager/entities/manager.entity';
+import { AccountRepository } from 'src/repository/account.repository';
+import { ManagerRepository } from 'src/repository/manager.repository';
 
-@Injectable()
 export class BankingServices {
-    private customerService: CustomerServices;
-    private managerService: ManagerServices;
 
-    constructor(
-        customerService: CustomerServices,
-        managerService: ManagerServices,
-    ) {
-        this.customerService = customerService;
-        this.managerService = managerService;
+    agency: string = '01';
+
+    getAccounts() {
+        const accounts = AccountRepository.readAccounts();
+        return accounts;
     }
 
     getCustomers() {
-        const customers = this.customerService.readCustomers();
+        const customers = CustomerRepository.readCustomers();
         return customers;
     }
 
-    getManagers() {
-        const data = this.managerService.readManagers();
+    getManagers(managerId?: string) {
+        if (managerId) return this.getManagerById(managerId);
+
+        const data = ManagerRepository.readManagers();
         return data;
     }
 
-    getManagerById(managerId: string) {
-        const data = this.managerService.readManagers();
+   getManagerById(managerId: string) {
+        console.log(managerId);
+        const data = ManagerRepository.readManagers();
         const manager = data.filter(
             (manager) => manager.idNumber === managerId,
         );
@@ -37,12 +36,19 @@ export class BankingServices {
     }
 
     createManager(manager: CreateUserDto): Manager[] {
-        const managers = this.managerService.readManagers();
+        const managers = ManagerRepository.readManagers();
         const newManager = new Manager(manager);
 
         managers.push(newManager);
-        this.managerService.writeManager(managers);
+        ManagerRepository.writeManager(managers);
 
         return managers;
     }
+
+    accountNumberGenerator() {
+        const accounts = this.getAccounts();
+        const accountNumber = `${accounts.length.toString().padStart(4, '0')}`;
+        return accountNumber;
+    }
+
 }
