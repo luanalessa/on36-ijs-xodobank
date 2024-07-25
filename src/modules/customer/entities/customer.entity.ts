@@ -3,6 +3,7 @@ import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 
 export class Customer extends User {
     managerId: string;
+    accounstId: string[];
 
     constructor(customer: CreateUserDto, managerId: string) {
         super(
@@ -16,5 +17,6 @@ export class Customer extends User {
         );
 
         this.managerId = managerId;
+        this.accounstId = new Array<string>();
     }
 }
