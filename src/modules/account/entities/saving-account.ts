@@ -1,10 +1,10 @@
+import { AccountType } from '../enum/account-type.enum';
 import { Account } from './account.entity';
 
 export class SavingAccount extends Account {
-    private interestRate: number;
+    interestRate: number = 0.01;
 
-    constructor(customerId: string, accountNumber: string, agency: string) {
-        super(customerId, accountNumber, agency);
-        this.interestRate = 0.01;
+    constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
+        super(customerId, accountType, accountNumber, agency);
     }
 }

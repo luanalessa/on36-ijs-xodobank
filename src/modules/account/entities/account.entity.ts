@@ -1,9 +1,10 @@
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
 import { AccountStatus } from '../enum/account-status.enum';
+import { AccountType } from '../enum/account-type.enum';
 
 export abstract class Account {
     customerId: string;
-
+    type: AccountType;
     accountNumber: string;
     agency: string;
 
@@ -15,8 +16,9 @@ export abstract class Account {
 
     creationDate: Date;
 
-    constructor(customerId: string, accountNumber: string, agency: string) {
+    constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
         this.customerId = customerId;
+        this.type = accountType;
         this.accountNumber = accountNumber;
         this.agency = agency;
         this.status = AccountStatus.open;
