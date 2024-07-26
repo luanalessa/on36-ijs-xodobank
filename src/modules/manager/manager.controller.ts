@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     Patch,
@@ -9,42 +10,51 @@ import {
 } from '@nestjs/common';
 import { ManagerServices } from './services/manager.services';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { Customer } from '../customer/entities/customer.entity';
-import {
-    ApiOperation,
-    ApiProperty,
-    ApiQuery,
-    ApiResponse,
-    ApiTags,
-} from '@nestjs/swagger';
-import { AccountType } from '../account/enum/account-type.enum';
-import { CreateAccountDto } from '../account/dto/create-account.dto';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { AccountDto } from '../account/dto/account.dto';
+import { SwitchCustomerDto } from '../banking/dto/switch-customer.dto';
 
 @ApiTags('Manager')
 @Controller('manager')
 export class ManagerController {
-    constructor(private readonly managerService: ManagerServices) {}
+    constructor(private readonly service: ManagerServices) {}
 
-    @Get('customer')
-    @ApiQuery({ name: 'managerId', type: String })
-    getCustomers(@Query('managerId') managerId: string) {
-        return this.managerService.getCustomersByManager(managerId);
+    @Get(':managerId/customers')
+    getCustomers(@Param('managerId') managerId: string) {
+        return this.service.getCustomersByManager(managerId);
     }
 
-    @Post('customer')
-    @ApiQuery({ name: 'managerId', type: String })
+    @Post('')
+    createManager(@Body() manager: CreateUserDto) {
+        return this.service.createManager(manager);
+    }
+
+    @Post(':managerId/customer')
     createCustomer(
-        @Query('managerId') managerId: string,
+        @Param('managerId') managerId: string,
         @Body() customer: CreateUserDto,
     ) {
-        return this.managerService.createCustomer(customer, managerId);
+        return this.service.createCustomer(customer, managerId);
     }
 
     @Post('customer/account')
-    @ApiQuery({ name: 'customerId', type: String })
     @ApiQuery({ name: 'managerId', type: String })
-    @ApiQuery({ name: 'accountType', enum: AccountType })
-    createAccount(@Query() createAccountDto: CreateAccountDto) {
-        return this.managerService.createAccount(createAccountDto);
+    createAccount(@Query() createAccountDto: AccountDto) {
+        return this.service.createAccount(createAccountDto);
+    }
+
+    @Patch('customer')
+    switchCustomer(@Query() switchCustomer: SwitchCustomerDto) {
+        return this.service.switchCustomer(switchCustomer);
+    }
+
+    @Delete(':managerId')
+    deleteManager(@Param('managerId') managerId: string) {
+        return this.service.deleteManager(managerId);
+    }
+
+    @Delete('customer/account')
+    deleteAccount(@Query() accountDto: AccountDto) {
+        return this.service.deleteAccount(accountDto);
     }
 }

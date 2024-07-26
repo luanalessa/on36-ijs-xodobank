@@ -16,7 +16,12 @@ export abstract class Account {
 
     creationDate: Date;
 
-    constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
+    constructor(
+        customerId: string,
+        accountType: AccountType,
+        accountNumber: string,
+        agency: string,
+    ) {
         this.customerId = customerId;
         this.type = accountType;
         this.accountNumber = accountNumber;

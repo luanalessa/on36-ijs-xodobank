@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Customer } from 'src/modules/customer/entities/customer.entity';

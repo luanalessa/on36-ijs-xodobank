@@ -1,11 +1,11 @@
-import { CustomerRepository } from './../../../repository/customer.repository';
+import { CustomerRepository } from 'src/repository/customer.repository';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { Manager } from 'src/modules/manager/entities/manager.entity';
 import { AccountRepository } from 'src/repository/account.repository';
 import { ManagerRepository } from 'src/repository/manager.repository';
+import { Customer } from 'src/modules/customer/entities/customer.entity';
 
 export class BankingServices {
-
     agency: string = '01';
 
     getAccounts() {
@@ -25,8 +25,7 @@ export class BankingServices {
         return data;
     }
 
-   getManagerById(managerId: string) {
-        console.log(managerId);
+    getManagerById(managerId: string) {
         const data = ManagerRepository.readManagers();
         const manager = data.filter(
             (manager) => manager.idNumber === managerId,
@@ -35,20 +34,9 @@ export class BankingServices {
         return manager;
     }
 
-    createManager(manager: CreateUserDto): Manager[] {
-        const managers = ManagerRepository.readManagers();
-        const newManager = new Manager(manager);
-
-        managers.push(newManager);
-        ManagerRepository.writeManager(managers);
-
-        return managers;
-    }
-
     accountNumberGenerator() {
         const accounts = this.getAccounts();
         const accountNumber = `${accounts.length.toString().padStart(4, '0')}`;
         return accountNumber;
     }
-
 }

@@ -1,12 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AccountType } from '../enum/account-type.enum';
 
-export class CreateAccountDto {
+export class AccountDto {
     @ApiProperty()
     customerId: string;
-
-    @ApiProperty()
-    managerId: string;
 
     @ApiProperty({ enum: AccountType, enumName: 'AccountType' })
     accountType: AccountType;

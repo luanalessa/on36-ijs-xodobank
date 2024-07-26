@@ -1,11 +1,10 @@
-import { Customer } from 'src/modules/customer/entities/customer.entity';
-import { CreateCustomerDto } from 'src/modules/customer/dto/create-customer-dto';
+import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { User } from 'src/modules/user/entities/user.entity';
 
 export class Manager extends User {
     customersId: string[];
 
-    constructor(user: CreateCustomerDto) {
+    constructor(user: CreateUserDto) {
         super(
             user.name,
             user.idNumber,

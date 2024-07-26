@@ -1,5 +1,3 @@
-import { Document } from './document.entity';
-
 export abstract class User {
     name: string;
     idNumber: string;
@@ -8,6 +6,8 @@ export abstract class User {
     dateOfBirth: Date;
     email: string;
     password: string;
+
+    isActive: boolean;
 
     constructor(
         name: string,
@@ -25,5 +25,6 @@ export abstract class User {
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
+        this.isActive = true;
     }
 }

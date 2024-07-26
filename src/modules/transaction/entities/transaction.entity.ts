@@ -1,15 +1,31 @@
-import { Account } from 'src/modules/account/entities/account.entity';
 import { TransactionStatus } from '../enum/transaction-status.enum';
 import { TransactionType } from '../enum/transaction-type.enum';
 
 export class Transaction {
+    amount: number;
+    accountBalance: number;
+
+    receiverId: string;
+    senderId: string;
+
+    type: TransactionType;
+    status: TransactionStatus;
+
+    dueDate: Date;
+    creationDate: Date = new Date();
+
     constructor(
-        senderId: string,
-        receiverId: string,
+        amount: number,
         type: TransactionType,
-        status: TransactionStatus,
-        balance: number,
-        dueDate: Date,
-        creationDate: Date = new Date(),
-    ) {}
+        accountBalance: number,
+        receiverId: string,
+        senderId: string,
+    ) {
+        this.amount = amount;
+        this.accountBalance = accountBalance - this.amount;
+        this.type = type;
+        this.status = TransactionStatus.pending;
+        this.receiverId = receiverId;
+        this.senderId = senderId;
+    }
 }

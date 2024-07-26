@@ -2,14 +2,15 @@ import { BankingServices } from './services/banking.services';
 import {
     Body,
     Controller,
+    Delete,
     Get,
-    Param,
     Patch,
     Post,
     Query,
 } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { SwitchCustomerDto } from './dto/switch-customer.dto';
 
 @ApiTags('Banking')
 @Controller('banking')
@@ -25,10 +26,5 @@ export class BankingController {
     @Get('customers')
     getCustomers() {
         return this.services.getCustomers();
-    }
-
-    @Post('manager')
-    createManager(@Body() manager: CreateUserDto) {
-        return this.services.createManager(manager);
     }
 }

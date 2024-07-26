@@ -1,6 +1,6 @@
 export enum AccountStatus {
-    open,
-    active,
-    blocked,
-    closed,
+    open = 'open',
+    active = 'active',
+    blocked = 'blocked',
+    deleted = 'deleted',
 }
