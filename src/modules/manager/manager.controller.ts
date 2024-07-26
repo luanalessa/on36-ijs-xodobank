@@ -43,7 +43,7 @@ export class ManagerController {
         return this.service.createAccount(createAccountDto);
     }
 
-    @Patch('customer')
+    @Patch('customer/switch-management')
     switchCustomer(@Query() switchCustomer: SwitchCustomerDto) {
         return this.service.switchCustomer(switchCustomer);
     }
