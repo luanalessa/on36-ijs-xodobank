@@ -19,17 +19,13 @@ import { SwitchCustomerDto } from '../banking/dto/switch-customer.dto';
 export class ManagerController {
     constructor(private readonly service: ManagerServices) {}
 
-    @Get(':managerId/customers')
-    getCustomers(@Param('managerId') managerId: string) {
-        return this.service.getCustomersByManager(managerId);
-    }
-
     @Post('')
     createManager(@Body() manager: CreateUserDto) {
         return this.service.createManager(manager);
     }
 
-    @Post(':managerId/customer')
+    @Post('customer')
+    @ApiQuery({ name: 'managerId', type: String })
     createCustomer(
         @Param('managerId') managerId: string,
         @Body() customer: CreateUserDto,
@@ -48,8 +44,9 @@ export class ManagerController {
         return this.service.switchCustomer(switchCustomer);
     }
 
-    @Delete(':managerId')
-    deleteManager(@Param('managerId') managerId: string) {
+    @Delete('')
+    @ApiQuery({ name: 'managerId', type: String })
+    deleteManager(@Query('managerId') managerId: string) {
         return this.service.deleteManager(managerId);
     }
 

@@ -24,7 +24,13 @@ export class BankingController {
     }
 
     @Get('customers')
-    getCustomers() {
-        return this.services.getCustomers();
+    @ApiQuery({ name: 'customerId',type: String, required: false })
+    getCustomers(@Query('customerId') customerId: string) {
+        return this.services.getCustomers(customerId);
+    }
+
+    @Get('accounts')
+    getAccounts() {
+        return this.services.getAccounts();
     }
 }

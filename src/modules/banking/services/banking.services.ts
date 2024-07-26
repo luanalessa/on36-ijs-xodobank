@@ -13,25 +13,27 @@ export class BankingServices {
         return accounts;
     }
 
-    getCustomers() {
+    getCustomers(customerId?: string) {
         const customers = CustomerRepository.readCustomers();
+
+        if(customerId)
+            return customers.filter(
+                (customer) => customer.idNumber === customerId,
+            );
+
         return customers;
     }
 
+
     getManagers(managerId?: string) {
-        if (managerId) return this.getManagerById(managerId);
+        const managers = ManagerRepository.readManagers();
 
-        const data = ManagerRepository.readManagers();
-        return data;
-    }
+        if(managerId)
+            return managers.filter(
+                (manager) => manager.idNumber === managerId,
+            );
 
-    getManagerById(managerId: string) {
-        const data = ManagerRepository.readManagers();
-        const manager = data.filter(
-            (manager) => manager.idNumber === managerId,
-        );
-
-        return manager;
+        return managers;
     }
 
     accountNumberGenerator() {

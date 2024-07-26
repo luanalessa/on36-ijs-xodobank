@@ -1,6 +1,6 @@
 export enum TransactionStatus {
-    failed,
-    pending,
-    scheduled,
-    confirmed,
+    failed = "failed",
+    pending = "pending",
+    scheduled = "scheduled",
+    confirmed = "confirmed",
 }

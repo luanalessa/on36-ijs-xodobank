@@ -6,11 +6,13 @@ export class TransactionServices extends Transaction {
     constructor(
         amount: number,
         type: TransactionType,
-        balance: number,
-        senderId: string,
         receiverId: string,
+        receiverAccountNumber: string,
+        senderId: string,
+        senderAccountNumber: string
+    
     ) {
-        super(amount, type, balance, senderId, receiverId);
+        super(amount, type, receiverId, receiverAccountNumber, senderId, senderAccountNumber);
     }
 
     record() {
