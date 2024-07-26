@@ -36,11 +36,11 @@ Sabendo disso, a comunidade da { reprograma } decidiu criar um banco comunitári
 - [ ] Crédito para financiamento de empreendimentos solidários.
 - [ ] Crédito para consumo pessoal e familiar, sem juros.
 - [ ] Cartão de crédito popular solidário.
-- [ ] Abertura e extrato de conta corrente.
-- [ ] Depósito em conta corrente.
-- [ ] Saque avulso ou com cartão magnético.
+- [x] Abertura e extrato de conta corrente.
+- [x] Depósito em conta corrente.
+- [x] Saque avulso ou com cartão magnético.
 - [ ] Pagamento de contas (água, luz, telefone etc.).
-- [ ] Recebimento de aposentadorias e outros valores governamentais
+- [x] Recebimento de aposentadorias e outros valores governamentais
 - [x] Criação de Contas, Clientes e Gerentes.
 - [ ] Prestação de contas diário e semanal para toda a comunidade
 - [ ] Desafio extra: Moeda social circulante local.
