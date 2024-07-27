@@ -8,11 +8,6 @@ import { CheckingAccount } from './entities/checking-account';
 @Module({
     imports: [],
     controllers: [AccountController],
-    providers: [
-        CheckingAccountServices,
-        SavingAccountServices,
-        CheckingAccount,
-        SavingAccount,
-    ],
+    providers: [CheckingAccountServices, SavingAccountServices, CheckingAccount, SavingAccount],
 })
 export class AccountModule {}

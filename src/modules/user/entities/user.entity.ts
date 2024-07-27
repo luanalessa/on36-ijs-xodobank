@@ -9,15 +9,7 @@ export abstract class User {
 
     isActive: boolean;
 
-    constructor(
-        name: string,
-        nationalId: string,
-        address: string,
-        phone: string,
-        dateOfBirth: Date,
-        email: string,
-        password: string,
-    ) {
+    constructor(name: string, nationalId: string, address: string, phone: string, dateOfBirth: Date, email: string, password: string) {
         this.idNumber = nationalId;
         this.name = name;
         this.address = address;

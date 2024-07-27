@@ -1,8 +1,8 @@
 // src/dto/create-transaction.dto.ts
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
-export class CreateAccountDto {
+export class CreateTransactionDto {
     @IsNumber()
     @ApiProperty()
     amount: number;
@@ -10,7 +10,7 @@ export class CreateAccountDto {
     @IsString()
     @ApiProperty()
     customerId: string;
-    
+
     @IsString()
     @ApiProperty()
     accountNumber: string;

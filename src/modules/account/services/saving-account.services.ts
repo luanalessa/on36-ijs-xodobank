@@ -12,22 +12,17 @@ export class SavingAccountServices extends AccountServices {
         super();
     }
 
-    validateTransaction(transaction: Transaction, account : SavingAccount): boolean {
-        if (
-            account.balance - transaction.amount <= 0 &&
-            account.status === AccountStatus.active
-        ) {
+    validateTransaction(transaction: Transaction, account: SavingAccount): boolean {
+        if (account.balance - transaction.amount <= 0 && account.status === AccountStatus.active) {
             console.warn('Insufficient funds');
             return false;
         }
         return true;
     }
-    
+
     getSavingAccount(accountNumber: string): SavingAccount {
         const accounts = AccountRepository.readAccounts();
-        const account = accounts.filter(
-            (account: SavingAccount) => account.accountNumber == accountNumber && account.type == AccountType.Savings,
-        );
+        const account = accounts.filter((account: SavingAccount) => account.accountNumber == accountNumber && account.type == AccountType.Savings);
 
         return account;
     }

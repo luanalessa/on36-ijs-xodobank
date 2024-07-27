@@ -21,7 +21,7 @@ export class Transaction {
         receiverId: string,
         receiverAccountNumber: string,
         senderId: string,
-        senderAccountNumber: string
+        senderAccountNumber: string,
     ) {
         this.amount = amount;
         this.type = type;

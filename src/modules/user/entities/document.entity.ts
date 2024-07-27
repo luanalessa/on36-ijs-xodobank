@@ -31,33 +31,20 @@ export class Document {
 
     private hasValidCheckDigits(doc: string): boolean {
         const arr = doc.split('').map(Number);
-        return doc.length === 11
-            ? this.validatePersonalId(arr)
-            : this.validateBusinessId(arr);
+        return doc.length === 11 ? this.validatePersonalId(arr) : this.validateBusinessId(arr);
     }
 
     private validatePersonalId(arr: number[]): boolean {
         this.type = 'Personal';
-        return (
-            this.validateCheckDigit(arr, 9, 10) &&
-            this.validateCheckDigit(arr, 10, 11)
-        );
+        return this.validateCheckDigit(arr, 9, 10) && this.validateCheckDigit(arr, 10, 11);
     }
 
     private validateBusinessId(arr: number[]): boolean {
         this.type = 'Business';
-        return (
-            this.validateCheckDigit(arr, 12, 5, 2) &&
-            this.validateCheckDigit(arr, 13, 6, 2)
-        );
+        return this.validateCheckDigit(arr, 12, 5, 2) && this.validateCheckDigit(arr, 13, 6, 2);
     }
 
-    private validateCheckDigit(
-        arr: number[],
-        checkDigitIndex: number,
-        startWeight: number,
-        restLimit: number = 10,
-    ): boolean {
+    private validateCheckDigit(arr: number[], checkDigitIndex: number, startWeight: number, restLimit: number = 10): boolean {
         let sum = 0;
         let weight = startWeight;
 

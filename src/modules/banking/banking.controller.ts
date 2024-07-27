@@ -1,16 +1,6 @@
 import { BankingServices } from './services/banking.services';
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Patch,
-    Post,
-    Query,
-} from '@nestjs/common';
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
-import { SwitchCustomerDto } from './dto/switch-customer.dto';
 
 @ApiTags('Banking')
 @Controller('banking')
@@ -24,7 +14,7 @@ export class BankingController {
     }
 
     @Get('customers')
-    @ApiQuery({ name: 'customerId',type: String, required: false })
+    @ApiQuery({ name: 'customerId', type: String, required: false })
     getCustomers(@Query('customerId') customerId: string) {
         return this.services.getCustomers(customerId);
     }

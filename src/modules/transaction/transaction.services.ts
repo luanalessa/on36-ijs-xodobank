@@ -9,8 +9,7 @@ export class TransactionServices extends Transaction {
         receiverId: string,
         receiverAccountNumber: string,
         senderId: string,
-        senderAccountNumber: string
-    
+        senderAccountNumber: string,
     ) {
         super(amount, type, receiverId, receiverAccountNumber, senderId, senderAccountNumber);
     }

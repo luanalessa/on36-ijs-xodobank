@@ -3,13 +3,7 @@ import * as path from 'path';
 import { Account } from 'src/modules/account/entities/account.entity';
 
 export class AccountRepository {
-    protected static filePath = path.join(
-        __dirname,
-        '..',
-        'repository',
-        'data',
-        'accounts.json',
-    );
+    protected static filePath = path.join(__dirname, '..', 'repository', 'data', 'accounts.json');
 
     static readAccounts() {
         const data = fs.readFileSync(this.filePath, 'utf8');
@@ -17,10 +11,6 @@ export class AccountRepository {
     }
 
     static writeAccounts(account: Account[]): void {
-        fs.writeFileSync(
-            this.filePath,
-            JSON.stringify(account, null, 2),
-            'utf8',
-        );
+        fs.writeFileSync(this.filePath, JSON.stringify(account, null, 2), 'utf8');
     }
 }

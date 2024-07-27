@@ -1,13 +1,4 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Param,
-    Patch,
-    Post,
-    Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post, Query } from '@nestjs/common';
 import { ManagerServices } from './services/manager.services';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
@@ -26,10 +17,7 @@ export class ManagerController {
 
     @Post('customer')
     @ApiQuery({ name: 'managerId', type: String })
-    createCustomer(
-        @Param('managerId') managerId: string,
-        @Body() customer: CreateUserDto,
-    ) {
+    createCustomer(@Param('managerId') managerId: string, @Body() customer: CreateUserDto) {
         return this.service.createCustomer(customer, managerId);
     }
 

@@ -20,9 +20,7 @@ export class ManagerServices {
     getCustomersByManager(managerId: string) {
         try {
             const data = CustomerRepository.readCustomers();
-            const customer = data.filter(
-                (customer) => customer.managerId === managerId,
-            );
+            const customer = data.filter((customer) => customer.managerId === managerId);
 
             return customer;
         } catch (err) {
@@ -37,9 +35,7 @@ export class ManagerServices {
         customers.push(newCustomer);
 
         const managers = ManagerRepository.readManagers();
-        const managerIndex = managers.findIndex(
-            (m) => m.idNumber === managerId,
-        );
+        const managerIndex = managers.findIndex((m) => m.idNumber === managerId);
 
         managers[managerIndex]['customersId'].push(customer.idNumber);
         ManagerRepository.writeManager(managers);
@@ -54,23 +50,11 @@ export class ManagerServices {
 
         const newAccount =
             account.accountType == AccountType.Savings
-                ? new SavingAccount(
-                      account.customerId,
-                      account.accountType,
-                      num,
-                      agency,
-                  )
-                : new CheckingAccount(
-                      account.customerId,
-                      account.accountType,
-                      num,
-                      agency,
-                  );
+                ? new SavingAccount(account.customerId, account.accountType, num, agency)
+                : new CheckingAccount(account.customerId, account.accountType, num, agency);
 
         const customers = CustomerRepository.readCustomers();
-        const customerIndex = customers.findIndex(
-            (c) => c.idNumber === account.customerId,
-        );
+        const customerIndex = customers.findIndex((c) => c.idNumber === account.customerId);
 
         const accounts = AccountRepository.readAccounts();
         accounts.push(newAccount);
@@ -84,23 +68,15 @@ export class ManagerServices {
 
     deleteAccount(account: AccountDto): void {
         const accounts = AccountRepository.readAccounts();
-        const accountIndex = accounts.findIndex(
-            (index: Account) =>
-                index.customerId == account.customerId &&
-                index.type == account.accountType,
-        );
+        const accountIndex = accounts.findIndex((index: Account) => index.customerId == account.customerId && index.type == account.accountType);
 
         accounts[accountIndex]['status'] = AccountStatus.deleted;
 
         const customers = CustomerRepository.readCustomers();
-        const customerIndex = customers.findIndex(
-            (index: Customer) => index.idNumber == account.customerId,
-        );
+        const customerIndex = customers.findIndex((index: Customer) => index.idNumber == account.customerId);
         const accountNumber = accounts[accountIndex]['accountNumber'];
 
-        const updatedCustomerAccountList = customers[customerIndex][
-            'accountsId'
-        ].filter((accountId: string) => accountId != accountNumber);
+        const updatedCustomerAccountList = customers[customerIndex]['accountsId'].filter((accountId: string) => accountId != accountNumber);
         customers[customerIndex]['accountsId'] = updatedCustomerAccountList;
 
         AccountRepository.writeAccounts(accounts);
@@ -119,9 +95,7 @@ export class ManagerServices {
 
     deleteManager(managerId: string): void {
         const managers = ManagerRepository.readManagers();
-        const index = managers.findIndex(
-            (manager: Manager) => manager.idNumber == managerId,
-        );
+        const index = managers.findIndex((manager: Manager) => manager.idNumber == managerId);
 
         managers[index]['isActive'] = false;
         ManagerRepository.writeManager(managers);
@@ -129,28 +103,15 @@ export class ManagerServices {
 
     switchCustomer(switchCustomer): void {
         const customers = CustomerRepository.readCustomers();
-        const customerIndex = customers.findIndex(
-            (customer: Customer) =>
-                customer.idNumber == switchCustomer.customerId,
-        );
+        const customerIndex = customers.findIndex((customer: Customer) => customer.idNumber == switchCustomer.customerId);
 
         const managers = ManagerRepository.readManagers();
-        const currentManagerIndex = managers.findIndex(
-            (manager: Manager) =>
-                manager.idNumber == switchCustomer.currentManagerId,
-        );
-        const newManagerIndex = managers.findIndex(
-            (manager: Manager) =>
-                manager.idNumber == switchCustomer.newManagerId,
-        );
+        const currentManagerIndex = managers.findIndex((manager: Manager) => manager.idNumber == switchCustomer.currentManagerId);
+        const newManagerIndex = managers.findIndex((manager: Manager) => manager.idNumber == switchCustomer.newManagerId);
 
-        const customersUpdated = managers[currentManagerIndex][
-            'customersId'
-        ].filter((id) => id != switchCustomer.customerId);
+        const customersUpdated = managers[currentManagerIndex]['customersId'].filter((id) => id != switchCustomer.customerId);
         managers[currentManagerIndex]['customersId'] = customersUpdated;
-        managers[newManagerIndex]['customersId'].push(
-            switchCustomer.customerId,
-        );
+        managers[newManagerIndex]['customersId'].push(switchCustomer.customerId);
 
         customers[customerIndex]['managerId'] = switchCustomer.newManagerId;
 
