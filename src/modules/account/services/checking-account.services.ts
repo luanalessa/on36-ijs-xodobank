@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AccountServices } from './account.services';
 import { CheckingAccount } from '../entities/checking-account';
-import { AccountRepository } from 'src/repository/account.repository';
 import { AccountType } from '../enum/account-type.enum';
 import { Account } from '../interfaces/account.interface';
 

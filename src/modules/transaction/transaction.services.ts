@@ -7,7 +7,7 @@ export class TransactionServices {
     constructor(transaction: Transaction) {
         this.transaction = transaction;
     }
-    
+
     record() {
         this.transaction.dueDate = new Date();
         this.transaction.status = TransactionStatus.confirmed;

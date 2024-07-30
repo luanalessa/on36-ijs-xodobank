@@ -15,8 +15,7 @@ import { CheckingAccountServices } from 'src/modules/account/services/checking-a
 import { SwitchCustomerDto } from 'src/modules/banking/dto/switch-customer.dto';
 
 @Injectable()
-export class ManagerServices  {
-
+export class ManagerServices {
     private bankServices: BankingServices;
     private savingAccountServices: SavingAccountServices;
     private checkingAccountServices: CheckingAccountServices;
@@ -29,7 +28,6 @@ export class ManagerServices  {
         this.bankServices = new BankingServices();
         this.savingAccountServices = new SavingAccountServices();
         this.checkingAccountServices = new CheckingAccountServices();
-
 
         this.accounts = AccountRepository.readAccounts();
         this.managers = ManagerRepository.readManagers();
@@ -80,7 +78,6 @@ export class ManagerServices  {
 
         AccountRepository.writeAccounts(this.accounts);
         CustomerRepository.writeCustomers(this.customers);
-
     }
 
     createManager(user: CreateUserDto): Manager {

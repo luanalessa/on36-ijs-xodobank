@@ -1,12 +1,11 @@
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
-import { AccountStatus } from '../modules/account/enum/account-status.enum';
-import { Account } from '../modules/account/interfaces/account.interface';
+import { AccountStatus } from '../../account/enum/account-status.enum';
+import { Account } from '../../account/interfaces/account.interface';
 import { NotificationService } from 'src/modules/notification/notification.services';
 import { EventType } from 'src/modules/notification/enum/event-type.enum';
 import { AccountType } from 'src/modules/account/enum/account-type.enum';
 
 export class OperationValidator {
-    
     validate(transaction: Transaction, account: Account, observer: NotificationService): boolean {
         if (account.status === AccountStatus.open && transaction.amount < 10) {
             observer.notify(EventType.ALERT, 'The first deposit needs to be more than R$ 10 to activate the account');
@@ -20,18 +19,16 @@ export class OperationValidator {
     }
 
     private checkFunds(amount: number, account: Account, observer: NotificationService): boolean {
-
         if (account.type == AccountType.Checking) {
-            if (account.balance - amount <= -account["overdraftLimit"] && account.status === AccountStatus.active) {
-                observer.notify(EventType.ERROR,'This transaction is not allowed, because you have insufficient funds.');
+            if (account.balance - amount <= -account['overdraftLimit'] && account.status === AccountStatus.active) {
+                observer.notify(EventType.ERROR, 'This transaction is not allowed, because you have insufficient funds.');
                 return false;
             }
-            if(account.balance - amount < 0) {
+            if (account.balance - amount < 0) {
                 observer.notify(EventType.ALERT, 'You are using a check special limt.');
                 return true;
-
             }
-        } else  {
+        } else {
             if (account.balance - amount < 0 && account.status === AccountStatus.active) {
                 observer.notify(EventType.ERROR, 'Insufaficient funds');
                 return false;

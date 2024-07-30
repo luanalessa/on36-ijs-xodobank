@@ -3,7 +3,7 @@ import { AccountRepository } from './../../../repository/account.repository';
 import { TransactionType } from 'src/modules/transaction/enum/transaction-type.enum';
 import { CreateTransferDto } from 'src/modules/transaction/dto/create-transfer.dto';
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
-import { OperationValidator } from '../../../utils/operation-validator';
+import { OperationValidator } from '../utils/operation-validator';
 import { Operations } from '../interfaces/operations.interface';
 import { AccountType } from '../enum/account-type.enum';
 import { Account } from '../interfaces/account.interface';
@@ -11,17 +11,16 @@ import { TransactionServices } from 'src/modules/transaction/transaction.service
 import { NotificationService } from 'src/modules/notification/notification.services';
 import { Logger } from 'src/modules/notification/observers/logger.observer';
 import { EventType } from 'src/modules/notification/enum/event-type.enum';
-import { Observer } from 'src/modules/notification/interfaces/observer.interface';
 
 export abstract class AccountServices implements Operations {
     protected accounts: Account[] = AccountRepository.readAccounts();
 
-    private observer: NotificationService  =  new NotificationService();
+    private observer: NotificationService = new NotificationService();
     private validator: OperationValidator = new OperationValidator();
 
     constructor() {
         const logger = new Logger();
-        this.observer.addObserver(logger)
+        this.observer.addObserver(logger);
     }
 
     abstract createAccount(customerId: string, accountType: AccountType, accountNumber: string, agency: string): Account;
