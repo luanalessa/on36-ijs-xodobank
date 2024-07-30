@@ -16,6 +16,7 @@ export abstract class CommonAccount implements Account {
     status: AccountStatus;
 
     creationDate: Date;
+    accountType: AccountType;
 
     constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
         this.customerId = customerId;
