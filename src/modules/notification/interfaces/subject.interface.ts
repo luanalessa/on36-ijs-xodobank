@@ -1,6 +1,6 @@
+import { EventType } from '../enum/event-type.enum';
 import { Observer } from './observer.interface';
 
 export interface Subject {
-  addObserver(observer: Observer): void;
-  notifyObservers(eventType: string, data: any): void;
+  notify(eventType: EventType, data: any): void;
 }

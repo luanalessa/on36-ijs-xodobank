@@ -1,18 +1,21 @@
 import { Injectable } from "@nestjs/common";
 import { Subject } from "./interfaces/subject.interface";
 import { Observer } from "./interfaces/observer.interface";
+import { EventType } from "./enum/event-type.enum";
 
 @Injectable()
 export class NotificationService implements Subject {
-  private observers: Observer[] = [];
+  public observers: Observer[] = [];
 
-  public addObserver(observer: Observer): void {
+  addObserver(observer: Observer): void {
     this.observers.push(observer);
   }
 
-  public notifyObservers(eventType: string, data: any): void {
-    for (const observer of this.observers) {
-      observer.update(eventType, data);
-    }
+  removeObserver(observer: Observer): void {
+    this.observers = this.observers.filter(obs => obs !== observer);
+  }
+
+  notify(eventType: EventType, message: string): void {
+    this.observers.forEach(observer => observer.message(eventType, message));
   }
 }

@@ -1,4 +1,6 @@
+import { EventType } from "../enum/event-type.enum";
+
 export interface Observer {
-    update(eventType: string, data: any): void;
+    message(eventType: EventType, data: any): void;
   }
   
