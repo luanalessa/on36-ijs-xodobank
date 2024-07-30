@@ -1,24 +1,14 @@
-export class Document {
-    public id: string;
-    public type: string;
-
-    // Consider how you can block when it comes to a repeated document
-    constructor(document: string) {
-        if (this.isValid(document)) this.id = this.cleanDocument(document);
-    }
-
+export class DocumentValidator {
     public isValid(doc: string): boolean | string {
         if (!this.hasValidLength(doc)) {
-            console.error('Invalid argument length or document number.');
-            return false;
+            throw new Error('Invalid argument length or document number.');
         }
 
         if (this.hasValidCheckDigits(doc)) {
-            return true;
+            return this.cleanDocument(doc);
         }
 
-        console.error('Invalid document number.');
-        return false;
+        throw new Error('Invalid document number.');
     }
 
     private cleanDocument(id: string): string {
@@ -35,12 +25,10 @@ export class Document {
     }
 
     private validatePersonalId(arr: number[]): boolean {
-        this.type = 'Personal';
         return this.validateCheckDigit(arr, 9, 10) && this.validateCheckDigit(arr, 10, 11);
     }
 
     private validateBusinessId(arr: number[]): boolean {
-        this.type = 'Business';
         return this.validateCheckDigit(arr, 12, 5, 2) && this.validateCheckDigit(arr, 13, 6, 2);
     }
 

@@ -39,7 +39,7 @@ export class ManagerController {
     }
 
     @Delete('customer/account')
-    deleteAccount(@Query() accountDto: AccountDto) {
-        return this.service.deleteAccount(accountDto);
+    deleteAccount(@Query() accountNumber: string) {
+        return this.service.deleteAccount(accountNumber);
     }
 }

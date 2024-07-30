@@ -1,29 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { AccountServices } from './account.services';
 import { SavingAccount } from '../entities/saving-account';
-import { AccountRepository } from 'src/repository/account.repository';
 import { AccountType } from '../enum/account-type.enum';
-import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
-import { AccountStatus } from '../enum/account-status.enum';
+import { Account } from '../interfaces/account.interface';
 
 @Injectable()
 export class SavingAccountServices extends AccountServices {
-    constructor() {
-        super();
+    createAccount(customerId: string, accountType: AccountType, accountNumber: string, agency: string): Account {
+        return new SavingAccount(customerId, accountType, accountNumber, agency);
     }
 
-    validateTransaction(transaction: Transaction, account: SavingAccount): boolean {
-        if (account.balance - transaction.amount <= 0 && account.status === AccountStatus.active) {
-            console.warn('Insufficient funds');
-            return false;
+    getAccount(accountNumber: string): { index: number; account: Account } {
+        const index = this.accounts.findIndex((account) => account.accountNumber === accountNumber && account.type === AccountType.Savings);
+
+        console.log(index);
+        if (index !== -1) {
+            const account = this.accounts.find((account) => account.accountNumber === accountNumber);
+            return { index, account };
         }
-        return true;
-    }
 
-    getSavingAccount(accountNumber: string): SavingAccount {
-        const accounts = AccountRepository.readAccounts();
-        const account = accounts.filter((account: SavingAccount) => account.accountNumber == accountNumber && account.type == AccountType.Savings);
-
-        return account;
+        throw new Error(`Account with number ${accountNumber} not found.`);
     }
 }
