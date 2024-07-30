@@ -13,10 +13,10 @@ import { Manager } from '../entities/manager.entity';
 import { SavingAccountServices } from 'src/modules/account/services/saving-account.services';
 import { CheckingAccountServices } from 'src/modules/account/services/checking-account.services';
 import { SwitchCustomerDto } from 'src/modules/banking/dto/switch-customer.dto';
-import { User } from 'src/modules/user/entities/user.entity';
 
 @Injectable()
-export class ManagerServices {
+export class ManagerServices  {
+
     private bankServices: BankingServices;
     private savingAccountServices: SavingAccountServices;
     private checkingAccountServices: CheckingAccountServices;
@@ -30,13 +30,15 @@ export class ManagerServices {
         this.savingAccountServices = new SavingAccountServices();
         this.checkingAccountServices = new CheckingAccountServices();
 
+
         this.accounts = AccountRepository.readAccounts();
-        this.customers = CustomerRepository.readCustomers();
         this.managers = ManagerRepository.readManagers();
+        this.customers = CustomerRepository.readCustomers();
     }
 
     createCustomer(user: CreateUserDto, managerId: string): Customer {
         const customer = new Customer(user, managerId);
+
         const managerIndex = this.managers.findIndex((manager) => manager.idNumber === managerId);
 
         this.managers[managerIndex]['customersId'].push(user.idNumber);
@@ -78,6 +80,7 @@ export class ManagerServices {
 
         AccountRepository.writeAccounts(this.accounts);
         CustomerRepository.writeCustomers(this.customers);
+
     }
 
     createManager(user: CreateUserDto): Manager {

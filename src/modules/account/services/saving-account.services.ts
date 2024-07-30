@@ -13,9 +13,8 @@ export class SavingAccountServices extends AccountServices {
     getAccount(accountNumber: string): { index: number; account: Account } {
         const index = this.accounts.findIndex((account) => account.accountNumber === accountNumber && account.type === AccountType.Savings);
 
-        console.log(index);
         if (index !== -1) {
-            const account = this.accounts.find((account) => account.accountNumber === accountNumber);
+            const account = this.accounts[index];
             return { index, account };
         }
 

@@ -15,7 +15,7 @@ export class CheckingAccountServices extends AccountServices {
         const index = this.accounts.findIndex((account) => account.accountNumber === accountNumber && account.type === AccountType.Checking);
 
         if (index !== -1) {
-            const account = this.accounts.find((account) => account.accountNumber === accountNumber);
+            const account = this.accounts[index];
             return { index, account };
         }
 

@@ -17,12 +17,11 @@ export class ManagerController {
 
     @Post('customer')
     @ApiQuery({ name: 'managerId', type: String })
-    createCustomer(@Param('managerId') managerId: string, @Body() customer: CreateUserDto) {
+    createCustomer(@Query('managerId') managerId: string, @Body() customer: CreateUserDto) {
         return this.service.createCustomer(customer, managerId);
     }
 
     @Post('customer/account')
-    @ApiQuery({ name: 'managerId', type: String })
     createAccount(@Query() createAccountDto: AccountDto) {
         return this.service.createAccount(createAccountDto);
     }
@@ -39,7 +38,7 @@ export class ManagerController {
     }
 
     @Delete('customer/account')
-    deleteAccount(@Query() accountNumber: string) {
+    deleteAccount(@Query('accountNumber') accountNumber: string) {
         return this.service.deleteAccount(accountNumber);
     }
 }
