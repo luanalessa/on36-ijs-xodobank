@@ -1,0 +1,23 @@
+[
+    {
+      "name": "Emma Watson",
+      "idNumber": "01M",
+      "address": "456 Oak St",
+      "phone": "987-654-3210",
+      "dateOfBirth": "1990-04-15",
+      "email": "emma.watson@example.com",
+      "password": "strongpassword1",
+      "customersId": ["01C"]
+    },
+    {
+        "name": "Malala Yousafzai",
+        "idNumber": "87654321098",
+        "address": "789 Pine St",
+        "phone": "876-543-2109",
+        "dateOfBirth": "1997-07-12",
+        "email": "malala.yousafzai@example.com",
+        "password": "strongpassword2",
+        "customersId": ["02C"]
+      }
+  ]
+  

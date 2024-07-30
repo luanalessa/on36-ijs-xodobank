@@ -1,0 +1,68 @@
+[
+    {
+      "customerId": "01C",
+      "type": "checking",
+      "accountNumber": "0000",
+      "agency": "01",
+      "status": "active",
+      "balance": 990,
+      "incomes": [
+        {
+          "creationDate": "2024-07-26T23:25:00.590Z",
+          "amount": 1000,
+          "accountBalance": 990,
+          "type": "deposit",
+          "status": "confirmed",
+          "receiverId": "01C",
+          "receiverAccountNumber": "0000",
+          "senderId": null,
+          "senderAccountNumber": null,
+          "dueDate": "2024-07-26T23:25:00.590Z"
+        }
+      ],
+      "outcomes": [
+        {
+          "creationDate": "2024-07-26T23:08:11.956Z",
+          "amount": -10,
+          "accountBalance": -10,
+          "type": "transfer",
+          "status": "confirmed",
+          "receiverId": "02C",
+          "receiverAccountNumber": "0001",
+          "senderId": "01C",
+          "senderAccountNumber": "0000",
+          "dueDate": "2024-07-26T23:08:11.956Z"
+        }
+      ],
+      "creationDate": "2024-07-26T23:06:16.646Z",
+      "overdraftLimit": 1000,
+      "maintenanceFee": 0.03
+    },
+    {
+      "customerId": "02C",
+      "type": "checking",
+      "accountNumber": "0001",
+      "agency": "01",
+      "status": "open",
+      "balance": 10,
+      "incomes": [
+        {
+          "creationDate": "2024-07-26T23:08:11.956Z",
+          "amount": 10,
+          "accountBalance": 10,
+          "type": "transfer",
+          "status": "confirmed",
+          "receiverId": "02C",
+          "receiverAccountNumber": "0001",
+          "senderId": "01C",
+          "senderAccountNumber": "0000",
+          "dueDate": "2024-07-26T23:08:11.956Z"
+        }
+      ],
+      "outcomes": [],
+      "creationDate": "2024-07-26T23:06:30.234Z",
+      "overdraftLimit": 1000,
+      "maintenanceFee": 0.03
+    }
+  ]
+  

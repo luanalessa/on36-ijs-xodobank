@@ -1,0 +1,25 @@
+[
+    {
+      "name": "Janja da Silva",
+      "idNumber": "01C",
+      "address": "Rua dos Pinheiros, 123",
+      "phone": "21-1234-5678",
+      "dateOfBirth": "1966-08-27",
+      "email": "janja.silva@example.com",
+      "password": "strongpassword1",
+      "managerId": "01M",
+      "accountsId": []
+    },
+    {
+      "name": "Djamila Ribeiro",
+      "idNumber": "02C",
+      "address": "Avenida Paulista, 456",
+      "phone": "11-8765-4321",
+      "dateOfBirth": "1980-08-01",
+      "email": "djamila.ribeiro@example.com",
+      "password": "strongpassword2",
+      "managerId": "02M",
+      "accountsId": []
+    }
+  ]
+  
