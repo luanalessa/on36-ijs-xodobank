@@ -3,14 +3,14 @@ import { AccountRepository } from 'src/repository/account.repository';
 import { ManagerRepository } from 'src/repository/manager.repository';
 
 export class BankingServices {
-    agency: string = '01';
+    private _agency: string = '01';
 
-    getAccounts() {
+    public getAccounts() {
         const accounts = AccountRepository.readAccounts();
         return accounts;
     }
 
-    getCustomers(customerId?: string) {
+    public getCustomers(customerId?: string) {
         const customers = CustomerRepository.readCustomers();
 
         if (customerId) return customers.filter((customer) => customer.idNumber === customerId);
@@ -18,7 +18,7 @@ export class BankingServices {
         return customers;
     }
 
-    getManagers(managerId?: string) {
+    public getManagers(managerId?: string) {
         const managers = ManagerRepository.readManagers();
 
         if (managerId) return managers.filter((manager) => manager.idNumber === managerId);
@@ -26,9 +26,13 @@ export class BankingServices {
         return managers;
     }
 
-    accountNumberGenerator() {
+    public accountNumberGenerator() {
         const accounts = this.getAccounts();
         const accountNumber = `${accounts.length.toString().padStart(4, '0')}`;
         return accountNumber;
+    }
+
+    get agency() {
+        return this._agency;
     }
 }

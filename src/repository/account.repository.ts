@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Account } from 'src/modules/account/entities/account.entity';
+import { Account } from 'src/modules/account/interfaces/account.interface';
 
 export class AccountRepository {
     protected static filePath = path.join(__dirname, '..', 'repository', 'data', 'accounts.json');
 
-    static readAccounts() {
+    static readAccounts(): Account[] {
         const data = fs.readFileSync(this.filePath, 'utf8');
         return JSON.parse(data);
     }

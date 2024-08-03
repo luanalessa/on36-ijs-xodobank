@@ -1,7 +1,7 @@
 import { AccountType } from '../enum/account-type.enum';
-import { Account } from './account.entity';
+import { CommonAccount } from './common-account';
 
-export class SavingAccount extends Account {
+export class SavingAccount extends CommonAccount {
     interestRate: number = 0.01;
 
     constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {

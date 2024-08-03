@@ -13,15 +13,15 @@ export class Transaction {
     status: TransactionStatus;
 
     dueDate: Date;
-    creationDate: Date = new Date();
+    creationDate: Date;
 
     constructor(
         amount: number,
         type: TransactionType,
         receiverId: string,
         receiverAccountNumber: string,
-        senderId: string,
-        senderAccountNumber: string,
+        senderId?: string,
+        senderAccountNumber?: string,
     ) {
         this.amount = amount;
         this.type = type;
@@ -30,5 +30,6 @@ export class Transaction {
         this.receiverAccountNumber = receiverAccountNumber;
         this.senderId = senderId;
         this.senderAccountNumber = senderAccountNumber;
+        this.creationDate = new Date();
     }
 }

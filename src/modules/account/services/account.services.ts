@@ -1,114 +1,106 @@
-import { CreateTransactionDto } from './../../transaction/dto/create-transaction.dto';
+import { CreateDepositOrWithdrawDto } from '../../transaction/dto/create-deposit-or-withdraw.dto';
 import { AccountRepository } from './../../../repository/account.repository';
-import { AccountStatus } from '../enum/account-status.enum';
-import { TransactionServices } from 'src/modules/transaction/transaction.services';
 import { TransactionType } from 'src/modules/transaction/enum/transaction-type.enum';
 import { CreateTransferDto } from 'src/modules/transaction/dto/create-transfer.dto';
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
+import { OperationValidator } from '../utils/operation-validator';
+import { Operations } from '../interfaces/operations.interface';
+import { AccountType } from '../enum/account-type.enum';
+import { Account } from '../interfaces/account.interface';
+import { TransactionServices } from 'src/modules/transaction/transaction.services';
+import { NotificationService } from 'src/modules/notification/notification.services';
+import { Logger } from 'src/modules/notification/observers/logger.observer';
+import { EventType } from 'src/modules/notification/enum/event-type.enum';
 
-export abstract class AccountServices {
-    protected abstract validateTransaction(transaction, account): boolean;
+export abstract class AccountServices implements Operations {
+    protected accounts: Account[] = AccountRepository.readAccounts();
 
-    public deposit(transaction: CreateTransactionDto): void {
-        const accounts = AccountRepository.readAccounts();
-        const accountIndex = accounts.findIndex((account) => account.accountNumber === transaction.accountNumber);
-        const account = accounts[accountIndex];
+    private observer: NotificationService = new NotificationService();
+    private validator: OperationValidator = new OperationValidator();
 
-        if (account.status === AccountStatus.open && transaction.amount < 10) {
-            console.warn('The first deposit need to be more than R$ 10  to activate the account');
-            return;
-        } else if (account.status === AccountStatus.open) {
-            account.status = AccountStatus.active;
-        }
-
-        const newTransaction = new TransactionServices(
-            transaction.amount,
-            TransactionType.deposit,
-            transaction.customerId,
-            transaction.accountNumber,
-            null,
-            null,
-        );
-        newTransaction.record();
-
-        account.balance += newTransaction.amount;
-        account.incomes.push(newTransaction);
-
-        AccountRepository.writeAccounts(accounts);
+    constructor() {
+        const logger = new Logger();
+        this.observer.addObserver(logger);
     }
 
-    public withdraw(transaction: CreateTransactionDto): void {
-        const accounts = AccountRepository.readAccounts();
-        const accountIndex = accounts.findIndex((account) => account.accountNumber === transaction.accountNumber);
-        const account = accounts[accountIndex];
+    abstract createAccount(customerId: string, accountType: AccountType, accountNumber: string, agency: string): Account;
 
-        if (this.validateTransaction(transaction, account)) {
-            const newTransaction = new TransactionServices(
-                transaction.amount,
-                TransactionType.withdraw,
-                transaction.customerId,
-                transaction.accountNumber,
-                null,
-                null,
-            );
-            newTransaction.record();
+    abstract getAccount(accountNumber: string): { index: number; account: Account };
+
+    public deposit(transaction: CreateDepositOrWithdrawDto): void {
+        const { account, index } = this.getAccount(transaction.accountNumber);
+
+        const newTransaction = new Transaction(transaction.amount, TransactionType.deposit, transaction.customerId, transaction.accountNumber);
+
+        if (account && this.validator.validate(newTransaction, account, this.observer)) {
+            const service = new TransactionServices(newTransaction);
+            service.record();
+
+            account.balance += newTransaction.amount;
+            account.incomes.push(newTransaction);
+
+            this.accounts[index] = account;
+            AccountRepository.writeAccounts(this.accounts);
+
+            this.observer.notify(EventType.INFOR, `You received a new deposit of R$ ${newTransaction.amount}.`);
+        }
+    }
+
+    public withdraw(transaction: CreateDepositOrWithdrawDto): void {
+        const { account, index } = this.getAccount(transaction.accountNumber);
+        const newTransaction = new Transaction(transaction.amount, TransactionType.withdraw, transaction.customerId, transaction.accountNumber);
+
+        if (account && this.validator.validate(newTransaction, account, this.observer)) {
+            const service = new TransactionServices(newTransaction);
+            service.record();
 
             account.balance -= newTransaction.amount;
             account.outcomes.push(newTransaction);
-            AccountRepository.writeAccounts(accounts);
+
+            this.accounts[index] = account;
+            AccountRepository.writeAccounts(this.accounts);
+            this.observer.notify(EventType.INFOR, `Your withdraw of R$ ${newTransaction.amount} has been successfully completed.`);
         }
     }
 
     public transfer(transaction: CreateTransferDto): void {
-        const accounts = AccountRepository.readAccounts();
+        const { account: senderAccount, index: senderIndex } = this.getAccount(transaction.senderAccountNumber);
+        const { account: receiverAccount, index: receiverIndex } = this.getAccount(transaction.receiverAccountNumber);
 
-        const senderIndex = accounts.findIndex((account) => account.accountNumber === transaction.senderAccountNumber);
-        const senderAccount = accounts[senderIndex];
+        const newTransaction = new Transaction(
+            transaction.amount,
+            TransactionType.transfer,
+            transaction.receiverId,
+            transaction.receiverAccountNumber,
+            transaction.senderId,
+            transaction.senderAccountNumber,
+        );
 
-        const receiverIndex = accounts.findIndex((account) => account.accountNumber === transaction.receiverAccountNumber);
-        const receiverAccount = accounts[receiverIndex];
+        if (senderAccount && receiverAccount && this.validator.validate(newTransaction as Transaction, senderAccount, this.observer)) {
+            const service = new TransactionServices(newTransaction);
 
-        if (this.validateTransaction(transaction, senderAccount)) {
-            const senderTransaction = new TransactionServices(
-                transaction.amount,
-                TransactionType.transfer,
-                transaction.receiverId,
-                transaction.receiverAccountNumber,
-                transaction.senderId,
-                transaction.senderAccountNumber,
-            );
-            senderTransaction.record();
+            service.record();
 
-            senderAccount.balance -= senderTransaction.amount;
-            senderAccount.outcomes.push(senderTransaction);
+            senderAccount.balance -= newTransaction.amount;
+            senderAccount.outcomes.push(newTransaction);
 
-            const receiverTransaction = new TransactionServices(
-                transaction.amount,
-                TransactionType.transfer,
-                transaction.receiverId,
-                transaction.receiverAccountNumber,
-                transaction.senderId,
-                transaction.senderAccountNumber,
-            );
-            receiverTransaction.record();
+            receiverAccount.balance += newTransaction.amount;
+            receiverAccount.incomes.push(newTransaction);
 
-            receiverAccount.balance += senderTransaction.amount;
-            receiverAccount.incomes.push(receiverTransaction);
+            this.accounts[senderIndex] = senderAccount;
+            this.accounts[receiverIndex] = receiverAccount;
 
-            AccountRepository.writeAccounts(accounts);
+            AccountRepository.writeAccounts(this.accounts);
+
+            this.observer.notify(EventType.INFOR, `Your transfer of ${transaction.amount} has been completed!`);
         }
     }
 
     public statement(accountNumber: string) {
-        const accounts = AccountRepository.readAccounts();
-        const accountIndex = accounts.findIndex((account) => account.accountNumber === accountNumber);
-
-        const statement = accounts[accountIndex]['incomes'];
-
-        accounts[accountIndex]['outcomes'].forEach((transaction: Transaction) => {
-            statement.push(transaction);
-        });
-
-        return statement;
+        const { account } = this.getAccount(accountNumber);
+        if (account) {
+            return [...account.incomes, ...account.outcomes];
+        }
+        return [];
     }
 }

@@ -3,7 +3,7 @@ import { CheckingAccountServices } from './services/checking-account.services';
 import { SavingAccountServices } from './services/saving-account.services';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AccountType } from './enum/account-type.enum';
-import { CreateTransactionDto } from '../transaction/dto/create-transaction.dto';
+import { CreateDepositOrWithdrawDto } from '../transaction/dto/create-deposit-or-withdraw.dto';
 import { CreateTransferDto } from '../transaction/dto/create-transfer.dto';
 
 @ApiTags('Account Operations')
@@ -18,13 +18,13 @@ export class AccountController {
     @ApiQuery({ name: 'accountNumber', type: String })
     @ApiQuery({ name: 'accountType', enum: AccountType })
     getAccount(@Query('accountNumber') accountNumber: string, @Query('accountType') accountType: AccountType) {
-        if (accountType === AccountType.Checking) return this.checkingAccountService.getCheckAccount(accountNumber);
-        else return this.savingAccountService.getSavingAccount(accountNumber);
+        if (accountType === AccountType.Checking) return this.checkingAccountService.getAccount(accountNumber);
+        else return this.savingAccountService.getAccount(accountNumber);
     }
 
     @Post('deposit')
     @ApiQuery({ name: 'accountReceiverType', enum: AccountType })
-    deposit(@Body() transaction: CreateTransactionDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
+    deposit(@Body() transaction: CreateDepositOrWithdrawDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
         if (accountReceiverType === AccountType.Checking) {
             return this.checkingAccountService.deposit(transaction);
         } else {
@@ -34,7 +34,7 @@ export class AccountController {
 
     @Post('withdraw')
     @ApiQuery({ name: 'accountReceiverType', enum: AccountType })
-    withdraw(@Body() transaction: CreateTransactionDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
+    withdraw(@Body() transaction: CreateDepositOrWithdrawDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
         if (accountReceiverType === AccountType.Checking) {
             return this.checkingAccountService.withdraw(transaction);
         } else {

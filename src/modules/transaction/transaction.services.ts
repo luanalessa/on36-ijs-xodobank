@@ -1,25 +1,19 @@
 import { Transaction } from './entities/transaction.entity';
 import { TransactionStatus } from './enum/transaction-status.enum';
-import { TransactionType } from './enum/transaction-type.enum';
 
-export class TransactionServices extends Transaction {
-    constructor(
-        amount: number,
-        type: TransactionType,
-        receiverId: string,
-        receiverAccountNumber: string,
-        senderId: string,
-        senderAccountNumber: string,
-    ) {
-        super(amount, type, receiverId, receiverAccountNumber, senderId, senderAccountNumber);
+export class TransactionServices {
+    private transaction: Transaction;
+
+    constructor(transaction: Transaction) {
+        this.transaction = transaction;
     }
 
     record() {
-        this.dueDate = new Date();
-        this.status = TransactionStatus.confirmed;
+        this.transaction.dueDate = new Date();
+        this.transaction.status = TransactionStatus.confirmed;
     }
 
     report() {
-        this.status = TransactionStatus.failed;
+        this.transaction.status = TransactionStatus.failed;
     }
 }

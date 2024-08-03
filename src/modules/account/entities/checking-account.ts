@@ -1,7 +1,7 @@
 import { AccountType } from '../enum/account-type.enum';
-import { Account } from './account.entity';
+import { CommonAccount } from './common-account';
 
-export class CheckingAccount extends Account {
+export class CheckingAccount extends CommonAccount {
     overdraftLimit: number = 1000;
     maintenanceFee: number = 0.03;
 
