@@ -1,25 +1,32 @@
 [
-    {
-      "name": "Janja da Silva",
-      "idNumber": "01C",
-      "address": "Rua dos Pinheiros, 123",
-      "phone": "21-1234-5678",
-      "dateOfBirth": "1966-08-27",
-      "email": "janja.silva@example.com",
-      "password": "strongpassword1",
-      "managerId": "01M",
-      "accountsId": []
-    },
-    {
-      "name": "Djamila Ribeiro",
-      "idNumber": "02C",
-      "address": "Avenida Paulista, 456",
-      "phone": "11-8765-4321",
-      "dateOfBirth": "1980-08-01",
-      "email": "djamila.ribeiro@example.com",
-      "password": "strongpassword2",
-      "managerId": "02M",
-      "accountsId": []
-    }
-  ]
-  
+  {
+    "id": "987654321",
+    "name": "John Doe",
+    "idNumber": "123456789",
+    "address": "123 Elm Street",
+    "phone": "555-1234",
+    "dateOfBirth": "1980-01-01",
+    "email": "john.doe@example.com",
+    "password": "securepassword",
+    "managerId": "manager-1",
+    "isActive": true,
+    "accountsId": [
+      "0001"
+    ]
+  },
+  {
+    "id": "123456789",
+    "name": "Alice Johnson",
+    "idNumber": "987654321",
+    "address": "456 Oak Avenue",
+    "phone": "555-5678",
+    "dateOfBirth": "1985-05-15",
+    "email": "alice.johnson@example.com",
+    "password": "anothersecurepassword",
+    "managerId": "manager-2",
+    "isActive": true,
+    "accountsId": [
+      "0000"
+    ]
+  }
+]

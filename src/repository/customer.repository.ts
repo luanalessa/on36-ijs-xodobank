@@ -5,12 +5,12 @@ import { Customer } from 'src/modules/customer/entities/customer.entity';
 export class CustomerRepository {
     protected static filePath = path.join(__dirname, '..', 'repository', 'data', 'customers.json');
 
-    static readCustomers(): Customer[] {
+    static read(): Customer[] {
         const data = fs.readFileSync(this.filePath, 'utf8');
-        return JSON.parse(data) as Customer[];
+        return JSON.parse(data).filter((customer : Customer) => customer.isActive == true);
     }
 
-    static writeCustomers(customer: Customer[]): void {
+    static write(customer: Customer[]): void {
         fs.writeFileSync(this.filePath, JSON.stringify(customer, null, 2), 'utf8');
     }
 }

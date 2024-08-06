@@ -4,6 +4,7 @@ import { Account } from '../../account/interfaces/account.interface';
 import { NotificationService } from 'src/modules/notification/notification.services';
 import { EventType } from 'src/modules/notification/enum/event-type.enum';
 import { AccountType } from 'src/modules/account/enum/account-type.enum';
+import { TransactionType } from 'src/modules/transaction/enum/transaction-type.enum';
 
 export class OperationValidator {
     validate(transaction: Transaction, account: Account, observer: NotificationService): boolean {
@@ -15,18 +16,21 @@ export class OperationValidator {
             observer.notify(EventType.INFOR, `Account ${account.accountNumber} has been activated!`);
         }
 
-        return this.checkFunds(transaction.amount, account, observer);
+        return this.checkFunds(transaction.type, transaction.amount, account, observer);
     }
 
-    private checkFunds(amount: number, account: Account, observer: NotificationService): boolean {
+    private checkFunds(type: string, amount: number, account: Account, observer: NotificationService): boolean {
         if (account.type == AccountType.Checking) {
             if (account.balance - amount <= -account['overdraftLimit'] && account.status === AccountStatus.active) {
                 observer.notify(EventType.ERROR, 'This transaction is not allowed, because you have insufficient funds.');
                 return false;
             }
-            if (account.balance - amount < 0) {
-                observer.notify(EventType.ALERT, 'You are using a check special limt.');
-                return true;
+            if (type == TransactionType.transfer || type == TransactionType.withdraw || type == TransactionType.payment) {
+               if (account.balance - amount < 0) {
+                    observer.notify(EventType.ALERT, 'You are using a check special limt.');
+                    return true;
+            }
+            
             }
         } else {
             if (account.balance - amount < 0 && account.status === AccountStatus.active) {

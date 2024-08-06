@@ -9,8 +9,8 @@ export interface Account {
     agency: string;
 
     balance: number;
-    incomes: Transaction[];
-    outcomes: Transaction[];
+    incomes: string[];
+    outcomes: string[];
 
     status: AccountStatus;
 

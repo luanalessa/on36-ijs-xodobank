@@ -1,7 +1,9 @@
+import { randomUUID } from 'crypto';
 import { TransactionStatus } from '../enum/transaction-status.enum';
 import { TransactionType } from '../enum/transaction-type.enum';
 
 export class Transaction {
+    id: string;
     amount: number;
 
     receiverId: string;
@@ -23,6 +25,7 @@ export class Transaction {
         senderId?: string,
         senderAccountNumber?: string,
     ) {
+        this.id = randomUUID().toString();
         this.amount = amount;
         this.type = type;
         this.status = TransactionStatus.pending;

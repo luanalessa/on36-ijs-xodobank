@@ -1,0 +1,42 @@
+[
+    {
+      "id": "a89f7694-33c7-4fb5-951a-daff4f24959d",
+      "amount": 100,
+      "type": "deposit",
+      "status": "confirmed",
+      "receiverId": "987654321",
+      "receiverAccountNumber": "0000",
+      "creationDate": "2024-08-06T00:12:02.781Z",
+      "dueDate": "2024-08-06T00:12:02.784Z"
+    },
+    {
+      "id": "6adf29f9-51f3-4797-b43b-d4f564b7ce58",
+      "amount": 100,
+      "type": "deposit",
+      "status": "confirmed",
+      "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
+      "receiverAccountNumber": "0001",
+      "creationDate": "2024-08-06T00:12:45.420Z",
+      "dueDate": "2024-08-06T00:12:45.421Z"
+    },
+    {
+      "id": "7dd6befb-fa02-4e75-a3c6-ac952ae15701",
+      "amount": 10,
+      "type": "withdraw",
+      "status": "confirmed",
+      "receiverId": "e439d051-ddc0-4727-a609-8596b9676178",
+      "receiverAccountNumber": "0000",
+      "creationDate": "2024-08-06T00:13:12.024Z",
+      "dueDate": "2024-08-06T00:13:12.025Z"
+    },
+    {
+      "id": "2c68b38a-155a-4f24-abbe-b9234b0244cf",
+      "amount": 500,
+      "type": "withdraw",
+      "status": "confirmed",
+      "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
+      "receiverAccountNumber": "0001",
+      "creationDate": "2024-08-06T00:13:31.872Z",
+      "dueDate": "2024-08-06T00:13:31.874Z"
+    }
+  ]

@@ -1,23 +1,22 @@
 [
-    {
-      "name": "Emma Watson",
-      "idNumber": "01M",
-      "address": "456 Oak St",
-      "phone": "987-654-3210",
-      "dateOfBirth": "1990-04-15",
-      "email": "emma.watson@example.com",
-      "password": "strongpassword1",
-      "customersId": ["01C"]
-    },
-    {
-        "name": "Malala Yousafzai",
-        "idNumber": "87654321098",
-        "address": "789 Pine St",
-        "phone": "876-543-2109",
-        "dateOfBirth": "1997-07-12",
-        "email": "malala.yousafzai@example.com",
-        "password": "strongpassword2",
-        "customersId": ["02C"]
-      }
-  ]
-  
+  {
+    "name": "Jane Smith",
+    "idNumber": "manager-1",
+    "address": "789 Pine Road",
+    "phone": "555-6789",
+    "dateOfBirth": "1970-03-22",
+    "email": "jane.smith@example.com",
+    "password": "managerspassword",
+    "customersId": ["123456789"]
+  },
+  {
+    "name": "Bob Brown",
+    "idNumber": "manager-2",
+    "address": "321 Birch Street",
+    "phone": "555-9876",
+    "dateOfBirth": "1978-11-11",
+    "email": "bob.brown@example.com",
+    "password": "anothermanagerspassword",
+    "customersId": ["987654321"]
+  }
+]

@@ -1,68 +1,30 @@
 [
     {
-      "customerId": "01C",
+      "id": "e439d051-ddc0-4727-a609-8596b9676178",
+      "customerId": "123456789",
       "type": "checking",
       "accountNumber": "0000",
       "agency": "01",
-      "status": "active",
-      "balance": 990,
-      "incomes": [
-        {
-          "creationDate": "2024-07-26T23:25:00.590Z",
-          "amount": 1000,
-          "accountBalance": 990,
-          "type": "deposit",
-          "status": "confirmed",
-          "receiverId": "01C",
-          "receiverAccountNumber": "0000",
-          "senderId": null,
-          "senderAccountNumber": null,
-          "dueDate": "2024-07-26T23:25:00.590Z"
-        }
-      ],
-      "outcomes": [
-        {
-          "creationDate": "2024-07-26T23:08:11.956Z",
-          "amount": -10,
-          "accountBalance": -10,
-          "type": "transfer",
-          "status": "confirmed",
-          "receiverId": "02C",
-          "receiverAccountNumber": "0001",
-          "senderId": "01C",
-          "senderAccountNumber": "0000",
-          "dueDate": "2024-07-26T23:08:11.956Z"
-        }
-      ],
-      "creationDate": "2024-07-26T23:06:16.646Z",
+      "status": "open",
+      "balance": 0,
+      "incomes": [],
+      "outcomes": [],
+      "creationDate": "2024-08-05T23:59:32.185Z",
       "overdraftLimit": 1000,
       "maintenanceFee": 0.03
     },
     {
-      "customerId": "02C",
+      "id": "c6e26164-e4fb-428d-b409-89b914e53828",
+      "customerId": "987654321",
       "type": "checking",
       "accountNumber": "0001",
       "agency": "01",
       "status": "open",
-      "balance": 10,
-      "incomes": [
-        {
-          "creationDate": "2024-07-26T23:08:11.956Z",
-          "amount": 10,
-          "accountBalance": 10,
-          "type": "transfer",
-          "status": "confirmed",
-          "receiverId": "02C",
-          "receiverAccountNumber": "0001",
-          "senderId": "01C",
-          "senderAccountNumber": "0000",
-          "dueDate": "2024-07-26T23:08:11.956Z"
-        }
-      ],
+      "balance": 0,
+      "incomes": [],
       "outcomes": [],
-      "creationDate": "2024-07-26T23:06:30.234Z",
+      "creationDate": "2024-08-05T23:59:47.905Z",
       "overdraftLimit": 1000,
       "maintenanceFee": 0.03
     }
   ]
-  
