@@ -28,14 +28,26 @@ export class CustomerServices {
         }
     }
 
-    create(user: CreateUserDto, managerId: string): void {
+    create(user: CreateUserDto, managerId: string): Customer {
         try {
             const customer = new Customer(user, managerId);
             this.customers.push(customer);
             CustomerRepository.write(this.customers);
+            return customer;
         } catch (error) {
             this.handleError('Create customer', error);
         }
+    }
+
+    public geCustomer(id: string): { index: number; customer: Customer } {
+        const index = this.customers.findIndex((customer: Customer) => customer.idNumber === id);
+
+        if (index !== -1) {
+            const customer = this.customers[index];
+            return { index, customer };
+        }
+
+        throw new Error(`Customer with id number ${id} not found.`);
     }
 
     delete(customerId: string): void {
