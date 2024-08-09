@@ -1,4 +1,4 @@
-import { DocumentValidator } from '../../modules/user/utils/document-validator';
+import { DocumentValidator } from '../../../modules/user/utils/document-validator';
 
 describe('Document Validator', () => {
     const validator = new DocumentValidator();
