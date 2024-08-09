@@ -1,6 +1,6 @@
-import { randomUUID } from "crypto";
+import { randomUUID } from 'crypto';
 
-export abstract class User {
+export class User {
     id: string;
     name: string;
     idNumber: string;

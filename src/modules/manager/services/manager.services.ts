@@ -1,7 +1,7 @@
 import { Manager } from '../entities/manager.entity';
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
-import { ManagerRepository } from 'src/repository/manager.repository';
+import { CreateUserDto } from '../../user/dto/create-user.dto';
+import { ManagerRepository } from '../../../repository/manager.repository';
 
 @Injectable()
 export class ManagerServices {
@@ -18,32 +18,44 @@ export class ManagerServices {
         return manager;
     }
 
+    public getManager(id: string): { index: number; manager: Manager } {
+        const index = this.managers.findIndex((manager: Manager) => manager.idNumber === id);
+
+        if (index !== -1) {
+            const manager = this.managers[index];
+            return { index, manager };
+        }
+
+        throw new Error(`Manager with id number ${id} not found.`);
+    }
+
     delete(managerId: string): void {
-        this.update(managerId, { isActive: false })
+        this.update(managerId, { isActive: false });
     }
 
     private update(id: string, updates: Partial<Manager>): void {
-        const index = this.managers.findIndex((manager: Manager) => manager.id == id);
+        const index = this.managers.findIndex((manager: Manager) => manager.idNumber == id);
         this.managers[index] = { ...this.managers[index], ...updates };
 
         ManagerRepository.write(this.managers);
     }
 
     switchCustomerManagment(customerId: string, newManagerId: string, currentManagerId: string): void {
-        const currentManagerIndex = this.managers.findIndex((manager: Manager) => manager.id == currentManagerId);
-        const newManagerIndex = this.managers.findIndex((manager: Manager) => manager.id == newManagerId);
+        const currentManagerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber == currentManagerId);
+        const newManagerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber == newManagerId);
 
-        const currentManagerUpdated = this.managers[currentManagerIndex]['customersId'].filter((id) => id != customerId);
-        this.update(currentManagerId, {customersId: currentManagerUpdated })
+        const currentManagerUpdated = this.managers[currentManagerIndex]['customersId'].filter((idNumber) => idNumber != customerId);
+        this.update(currentManagerId, { customersId: currentManagerUpdated });
 
-        this.managers[newManagerIndex]['customersId'].push( customerId);
-        this.update(newManagerId, {customersId: this.managers[newManagerIndex]['customersId'] })
+        this.managers[newManagerIndex]['customersId'].push(customerId);
+        this.update(newManagerId, { customersId: this.managers[newManagerIndex]['customersId'] });
     }
 
     addCustomer(customerId: string, managerId: string): void {
-            const managerIndex = this.managers.findIndex( (manager : Manager) => manager.id === managerId);
-
-            this.managers[managerIndex]["customersId"].push(customerId)
-            this.update(managerId, {customersId: this.managers[managerIndex]["customersId"] })
+        const managerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber === managerId);
+        console.log(managerId, managerIndex);
+        console.log(this.managers);
+        this.managers[managerIndex]['customersId'].push(customerId);
+        this.update(managerId, { customersId: this.managers[managerIndex]['customersId'] });
     }
 }

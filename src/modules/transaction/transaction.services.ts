@@ -14,10 +14,9 @@ export class TransactionServices {
     record() {
         this.transaction.dueDate = new Date();
         this.transaction.status = TransactionStatus.confirmed;
-    
+
         this.transactions.push(this.transaction);
         TransactiontRepository.write(this.transactions);
-
     }
 
     report() {

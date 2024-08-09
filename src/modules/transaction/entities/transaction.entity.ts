@@ -1,38 +1,26 @@
 import { randomUUID } from 'crypto';
 import { TransactionStatus } from '../enum/transaction-status.enum';
 import { TransactionType } from '../enum/transaction-type.enum';
+import { Operational } from './operational.entity';
 
 export class Transaction {
     id: string;
     amount: number;
-
-    receiverId: string;
-    receiverAccountNumber: string;
-    senderId: string;
-    senderAccountNumber: string;
-
+    description: string;
     type: TransactionType;
+    source: Operational;
     status: TransactionStatus;
 
     dueDate: Date;
-    creationDate: Date;
+    capturedDate: Date;
 
-    constructor(
-        amount: number,
-        type: TransactionType,
-        receiverId: string,
-        receiverAccountNumber: string,
-        senderId?: string,
-        senderAccountNumber?: string,
-    ) {
+    constructor(amount: number, type: TransactionType, description: string, source: Operational) {
         this.id = randomUUID().toString();
         this.amount = amount;
         this.type = type;
         this.status = TransactionStatus.pending;
-        this.receiverId = receiverId;
-        this.receiverAccountNumber = receiverAccountNumber;
-        this.senderId = senderId;
-        this.senderAccountNumber = senderAccountNumber;
-        this.creationDate = new Date();
+        this.description = description;
+        this.source = source;
+        this.capturedDate = new Date();
     }
 }

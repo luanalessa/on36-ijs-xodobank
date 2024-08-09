@@ -7,7 +7,7 @@ export class CustomerRepository {
 
     static read(): Customer[] {
         const data = fs.readFileSync(this.filePath, 'utf8');
-        return JSON.parse(data).filter((customer : Customer) => customer.isActive == true);
+        return JSON.parse(data).filter((customer: Customer) => customer.isActive == true);
     }
 
     static write(customer: Customer[]): void {

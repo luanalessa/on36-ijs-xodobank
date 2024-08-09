@@ -14,10 +14,10 @@ export class SavingAccountServices extends AccountServices {
 
         const account = new SavingAccount(customerId, accountType, num, agency);
         this.accounts.push(account);
-        
+
         AccountRepository.write(this.accounts);
 
-        return num; 
+        return num;
     }
 
     getAccount(accountNumber: string): { index: number; account: Account } {

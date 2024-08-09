@@ -7,6 +7,7 @@ import { AccountDto } from './dto/account.dto';
 import { CheckingAccountServices } from './services/checking-account.services';
 import { SavingAccountServices } from './services/saving-account.services';
 import { CustomerServices } from './../customer/services/customer.services';
+import { CreateOperationDto } from '../transaction/dto/create-operation.dto';
 
 @ApiTags('Account Operations')
 @Controller('account')
@@ -14,16 +15,16 @@ export class AccountController {
     constructor(
         private readonly checkingAccountService: CheckingAccountServices,
         private readonly savingAccountService: SavingAccountServices,
-        private readonly customerServices: CustomerServices
+        private readonly customerServices: CustomerServices,
     ) {}
-
 
     @Post('customer')
     async create(@Query() createAccountDto: AccountDto) {
         try {
-            const accountId = (createAccountDto.accountType === AccountType.Checking)  
-                ? await this.checkingAccountService.create(createAccountDto)
-                : await this.savingAccountService.create(createAccountDto);
+            const accountId =
+                createAccountDto.accountType === AccountType.Checking
+                    ? await this.checkingAccountService.create(createAccountDto)
+                    : await this.savingAccountService.create(createAccountDto);
 
             await this.customerServices.addAccount(createAccountDto.customerId, accountId);
             return { statusCode: HttpStatus.CREATED, message: 'Account created successfully', data: { accountId } };
@@ -37,9 +38,10 @@ export class AccountController {
     @ApiQuery({ name: 'accountType', enum: AccountType })
     async get(@Query('accountNumber') accountNumber: string, @Query('accountType') accountType: AccountType) {
         try {
-            const account = (accountType === AccountType.Checking)  
-                ? await this.checkingAccountService.getAccount(accountNumber)
-                : await this.savingAccountService.getAccount(accountNumber);
+            const account =
+                accountType === AccountType.Checking
+                    ? await this.checkingAccountService.getAccount(accountNumber)
+                    : await this.savingAccountService.getAccount(accountNumber);
             return { statusCode: HttpStatus.OK, data: account };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.NOT_FOUND);
@@ -73,7 +75,7 @@ export class AccountController {
         },
     })
     @ApiQuery({ name: 'accountReceiverType', enum: AccountType })
-    async deposit(@Body() transaction: CreateDepositOrWithdrawDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
+    async deposit(@Body() transaction: CreateOperationDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
         try {
             await (accountReceiverType === AccountType.Checking
                 ? this.checkingAccountService.deposit(transaction)
@@ -86,7 +88,7 @@ export class AccountController {
 
     @Post('withdraw')
     @ApiQuery({ name: 'accountReceiverType', enum: AccountType })
-    async withdraw(@Body() transaction: CreateDepositOrWithdrawDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
+    async withdraw(@Body() transaction: CreateOperationDto, @Query('accountReceiverType') accountReceiverType: AccountType) {
         try {
             await (accountReceiverType === AccountType.Checking
                 ? this.checkingAccountService.withdraw(transaction)
@@ -98,9 +100,10 @@ export class AccountController {
     }
 
     @Post('transfer')
-    async transfer(@Body() transaction: CreateTransferDto) {
+    @ApiQuery({ name: 'sourceAccountType', enum: AccountType })
+    async transfer(@Body() transaction: CreateOperationDto, @Query('sourceAccountType') sourceAccountType: AccountType) {
         try {
-            await (transaction.senderAccountType === AccountType.Checking
+            await (sourceAccountType === AccountType.Checking
                 ? this.checkingAccountService.transfer(transaction)
                 : this.savingAccountService.transfer(transaction));
             return { statusCode: HttpStatus.OK, message: 'Transfer successful' };
@@ -114,9 +117,10 @@ export class AccountController {
     @ApiQuery({ name: 'accountType', enum: AccountType })
     async statement(@Query('accountNumber') accountNumber: string, @Query('accountType') accountType: AccountType) {
         try {
-            const statement = (accountType === AccountType.Checking
-                ? await this.checkingAccountService.statement(accountNumber)
-                : await this.savingAccountService.statement(accountNumber));
+            const statement =
+                accountType === AccountType.Checking
+                    ? await this.checkingAccountService.statement(accountNumber)
+                    : await this.savingAccountService.statement(accountNumber);
             return { statusCode: HttpStatus.OK, data: statement };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.NOT_FOUND);

@@ -6,7 +6,7 @@ import { ApiQuery, ApiTags } from '@nestjs/swagger';
 @ApiTags('Manager')
 @Controller('manager')
 export class ManagerController {
-    constructor(private readonly service: ManagerServices) {}
+    constructor(private readonly service: ManagerServices = new ManagerServices()) {}
 
     @Post(':id')
     async create(@Body() manager: CreateUserDto) {
@@ -15,7 +15,7 @@ export class ManagerController {
             return { statusCode: HttpStatus.CREATED, message: 'Manager created successfully', data: result };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }    
+        }
     }
 
     @Delete(':id')
@@ -26,6 +26,6 @@ export class ManagerController {
             return { statusCode: HttpStatus.OK, message: 'Manager deleted successfully' };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
-        }    }
+        }
+    }
 }
-

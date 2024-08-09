@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Patch, Post, Param, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
-import { ApiTags } from '@nestjs/swagger';    
+import { ApiTags } from '@nestjs/swagger';
 import { CustomerServices } from './services/customer.services';
 import { ManagerServices } from 'src/modules/manager/services/manager.services';
 import { CustomerDto } from './dto/customer.dto';
@@ -8,9 +8,11 @@ import { CustomerDto } from './dto/customer.dto';
 @ApiTags('Customer')
 @Controller('customer')
 export class CustomerController {
-    constructor(
-        private readonly customerService: CustomerServices,
-        private readonly managerService: ManagerServices) {}
+    private readonly managerService: ManagerServices;
+
+    constructor(private readonly customerService: CustomerServices = new CustomerServices()) {
+        this.managerService = new ManagerServices();
+    }
 
     @Post(':managerId')
     async create(@Param('managerId') managerId: string, @Body() customer: CreateUserDto) {
@@ -24,10 +26,7 @@ export class CustomerController {
     }
 
     @Patch(':managerId/switch-management')
-    async switchCustomer(
-        @Param('managerId') managerId: string,
-        @Body() body: CustomerDto 
-    ) {
+    async switchCustomer(@Param('managerId') managerId: string, @Body() body: CustomerDto) {
         try {
             const { customerId, newManagerId } = body;
             await this.customerService.switchCustomerManagment(customerId, newManagerId);

@@ -26,11 +26,10 @@ export class OperationValidator {
                 return false;
             }
             if (type == TransactionType.transfer || type == TransactionType.withdraw || type == TransactionType.payment) {
-               if (account.balance - amount < 0) {
+                if (account.balance - amount < 0) {
                     observer.notify(EventType.ALERT, 'You are using a check special limt.');
                     return true;
-            }
-            
+                }
             }
         } else {
             if (account.balance - amount < 0 && account.status === AccountStatus.active) {

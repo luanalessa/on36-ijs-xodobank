@@ -6,4 +6,6 @@ export enum TransactionType {
     exchange = 'exchange',
     interest = 'interest',
     maintenanceFee = 'maintenanceFee',
+    loan = 'loan',
+    credit_card = 'credit_card',
 }

@@ -1,6 +1,5 @@
 import { CreateDepositOrWithdrawDto } from '../../transaction/dto/create-deposit-or-withdraw.dto';
 import { AccountRepository } from './../../../repository/account.repository';
-import { TransactionType } from 'src/modules/transaction/enum/transaction-type.enum';
 import { CreateTransferDto } from 'src/modules/transaction/dto/create-transfer.dto';
 import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
 import { OperationValidator } from '../utils/operation-validator';
@@ -14,6 +13,9 @@ import { AccountDto } from '../dto/account.dto';
 import { BankingServices } from 'src/modules/banking/services/banking.services';
 import { AccountStatus } from '../enum/account-status.enum';
 import { TransactiontRepository } from 'src/repository/transaction.repository';
+import { Operational } from 'src/modules/transaction/entities/operational.entity';
+import { CreateOperationDto } from 'src/modules/transaction/dto/create-operation.dto';
+import { TransactionType } from 'src/modules/transaction/enum/transaction-type.enum';
 
 export abstract class AccountServices implements Operations {
     protected accounts: Account[];
@@ -22,35 +24,37 @@ export abstract class AccountServices implements Operations {
     private observer: NotificationService = new NotificationService();
     private validator: OperationValidator = new OperationValidator();
 
-
-
     constructor() {
         this.bankServices = new BankingServices();
         this.accounts = AccountRepository.read();
         const logger = new Logger();
         this.observer.addObserver(logger);
     }
-    
+
     abstract create({ customerId, accountType }: AccountDto): string;
 
     abstract getAccount(accountNumber: string): { index: number; account: Account };
 
-    private update(accountNumber: string, updates: Partial<Account>): void {
+    protected update(accountNumber: string, updates: Partial<Account>): void {
         const index = this.accounts.findIndex((account: Account) => account.accountNumber == accountNumber);
 
         this.accounts[index] = { ...this.accounts[index], ...updates };
         AccountRepository.write(this.accounts);
-        
     }
-    
+
     delete(accountNumber: string): void {
-        this.update(accountNumber, {status: AccountStatus.deleted } )
+        this.update(accountNumber, { status: AccountStatus.deleted });
     }
 
-    public deposit(transaction: CreateDepositOrWithdrawDto): void {
-        const { account, index } = this.getAccount(transaction.accountNumber);
+    public deposit(transaction: CreateOperationDto): void {
+        const { account, index } = this.getAccount(transaction.receiverAccount);
 
-        const newTransaction = new Transaction(transaction.amount, TransactionType.deposit, transaction.customerId, transaction.accountNumber);
+        const newTransaction = new Transaction(
+            transaction.amount,
+            TransactionType.deposit,
+            transaction.description,
+            new Operational(null, null, transaction.receiver, transaction.receiverAccount),
+        );
 
         if (account && this.validator.validate(newTransaction, account, this.observer)) {
             const service = new TransactionServices(newTransaction);
@@ -66,9 +70,15 @@ export abstract class AccountServices implements Operations {
         }
     }
 
-    public withdraw(transaction: CreateDepositOrWithdrawDto): void {
-        const { account, index } = this.getAccount(transaction.accountNumber);
-        const newTransaction = new Transaction(transaction.amount, TransactionType.withdraw, transaction.customerId, transaction.accountNumber);
+    public withdraw(transaction: CreateOperationDto): void {
+        const { account, index } = this.getAccount(transaction.debtorAccount);
+
+        const newTransaction = new Transaction(
+            transaction.amount,
+            TransactionType.withdraw,
+            transaction.description,
+            new Operational(transaction.debtor, transaction.debtorAccount, null, null),
+        );
 
         if (account && this.validator.validate(newTransaction, account, this.observer)) {
             const service = new TransactionServices(newTransaction);
@@ -83,31 +93,29 @@ export abstract class AccountServices implements Operations {
         }
     }
 
-    public transfer(transaction: CreateTransferDto): void {
-        const { account: senderAccount, index: senderIndex } = this.getAccount(transaction.senderAccountNumber);
-        const { account: receiverAccount, index: receiverIndex } = this.getAccount(transaction.receiverAccountNumber);
+    public transfer(transaction: CreateOperationDto): void {
+        const { account: debtorAccount, index: debtorIndex } = this.getAccount(transaction.debtorAccount);
+        const { account: receiverAccount, index: receiverIndex } = this.getAccount(transaction.receiverAccount);
 
         const newTransaction = new Transaction(
             transaction.amount,
             TransactionType.transfer,
-            transaction.receiverId,
-            transaction.receiverAccountNumber,
-            transaction.senderId,
-            transaction.senderAccountNumber,
+            transaction.description,
+            new Operational(transaction.debtor, transaction.debtorAccount, transaction.receiver, transaction.receiverAccount),
         );
 
-        if (senderAccount && receiverAccount && this.validator.validate(newTransaction as Transaction, senderAccount, this.observer)) {
+        if (debtorAccount && receiverAccount && this.validator.validate(newTransaction as Transaction, debtorAccount, this.observer)) {
             const service = new TransactionServices(newTransaction);
 
             service.record();
 
-            senderAccount.balance -= newTransaction.amount;
-            senderAccount.outcomes.push(newTransaction.id);
+            debtorAccount.balance -= newTransaction.amount;
+            debtorAccount.outcomes.push(newTransaction.id);
 
             receiverAccount.balance += newTransaction.amount;
             receiverAccount.incomes.push(newTransaction.id);
 
-            this.accounts[senderIndex] = senderAccount;
+            this.accounts[debtorIndex] = debtorAccount;
             this.accounts[receiverIndex] = receiverAccount;
 
             AccountRepository.write(this.accounts);
@@ -119,8 +127,8 @@ export abstract class AccountServices implements Operations {
     public statement(accountNumber: string) {
         const { account } = this.getAccount(accountNumber);
         if (account) {
-            const transactions = TransactiontRepository.read()
-            const transaction = transactions.filter((transaction : Transaction) => transaction.receiverAccountNumber === accountNumber);
+            const transactions = TransactiontRepository.read();
+            const transaction = transactions.filter((transaction: Transaction) => transaction.source.receiverAccount === accountNumber);
 
             return transaction;
         }

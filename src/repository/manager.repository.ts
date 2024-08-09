@@ -7,8 +7,7 @@ export class ManagerRepository {
 
     static read(): Manager[] {
         const data = fs.readFileSync(this.filePath, 'utf8');
-        return JSON.parse(data).filter((manager : Manager) => manager.isActive == true);
-
+        return JSON.parse(data).filter((manager: Manager) => manager.isActive == true);
     }
 
     static write(manager: Manager[]): void {

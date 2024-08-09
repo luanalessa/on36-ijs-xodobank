@@ -1,5 +1,5 @@
-import { User } from 'src/modules/user/entities/user.entity';
-import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
+import { User } from '../../user/entities/user.entity';
+import { CreateUserDto } from '../../user/dto/create-user.dto';
 
 export class Customer extends User {
     managerId: string;

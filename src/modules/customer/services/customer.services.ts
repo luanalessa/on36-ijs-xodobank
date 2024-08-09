@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateUserDto } from "src/modules/user/dto/create-user.dto";
-import { Customer } from "../entities/customer.entity";
-import { CustomerRepository } from "src/repository/customer.repository";
+import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
+import { Customer } from '../entities/customer.entity';
+import { CustomerRepository } from 'src/repository/customer.repository';
 
 @Injectable()
 export class CustomerServices {

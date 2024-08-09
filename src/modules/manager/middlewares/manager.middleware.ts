@@ -12,7 +12,7 @@ export class ValidateManager implements NestMiddleware {
         }
 
         const managers = ManagerRepository.read();
-        const managerExists = managers.some(manager => manager.idNumber === managerId);
+        const managerExists = managers.some((manager) => manager.idNumber === managerId);
 
         if (!managerExists) {
             throw new HttpException('Manager not found', HttpStatus.NOT_FOUND);
@@ -21,5 +21,3 @@ export class ValidateManager implements NestMiddleware {
         next();
     }
 }
-
-

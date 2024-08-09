@@ -1,42 +1,196 @@
 [
-    {
-      "id": "a89f7694-33c7-4fb5-951a-daff4f24959d",
-      "amount": 100,
-      "type": "deposit",
-      "status": "confirmed",
-      "receiverId": "987654321",
-      "receiverAccountNumber": "0000",
-      "creationDate": "2024-08-06T00:12:02.781Z",
-      "dueDate": "2024-08-06T00:12:02.784Z"
+  {
+    "id": "a89f7694-33c7-4fb5-951a-daff4f24959d",
+    "amount": 100,
+    "type": "deposit",
+    "status": "confirmed",
+    "receiverId": "987654321",
+    "receiverAccountNumber": "0000",
+    "creationDate": "2024-08-06T00:12:02.781Z",
+    "dueDate": "2024-08-06T00:12:02.784Z"
+  },
+  {
+    "id": "6adf29f9-51f3-4797-b43b-d4f564b7ce58",
+    "amount": 100,
+    "type": "deposit",
+    "status": "confirmed",
+    "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
+    "receiverAccountNumber": "0001",
+    "creationDate": "2024-08-06T00:12:45.420Z",
+    "dueDate": "2024-08-06T00:12:45.421Z"
+  },
+  {
+    "id": "7dd6befb-fa02-4e75-a3c6-ac952ae15701",
+    "amount": 10,
+    "type": "withdraw",
+    "status": "confirmed",
+    "receiverId": "e439d051-ddc0-4727-a609-8596b9676178",
+    "receiverAccountNumber": "0000",
+    "creationDate": "2024-08-06T00:13:12.024Z",
+    "dueDate": "2024-08-06T00:13:12.025Z"
+  },
+  {
+    "id": "2c68b38a-155a-4f24-abbe-b9234b0244cf",
+    "amount": 500,
+    "type": "withdraw",
+    "status": "confirmed",
+    "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
+    "receiverAccountNumber": "0001",
+    "creationDate": "2024-08-06T00:13:31.872Z",
+    "dueDate": "2024-08-06T00:13:31.874Z"
+  },
+  {
+    "id": "60b08e94-b1d4-4d91-8f99-022c8fb190d1",
+    "amount": 66.66666666666667,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
     },
-    {
-      "id": "6adf29f9-51f3-4797-b43b-d4f564b7ce58",
-      "amount": 100,
-      "type": "deposit",
-      "status": "confirmed",
-      "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
-      "receiverAccountNumber": "0001",
-      "creationDate": "2024-08-06T00:12:45.420Z",
-      "dueDate": "2024-08-06T00:12:45.421Z"
+    "capturedDate": "2024-09-08T00:24:04.644Z"
+  },
+  {
+    "id": "d884e8b8-f039-427f-a7cb-0493c303df97",
+    "amount": 66.66666666666667,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
     },
-    {
-      "id": "7dd6befb-fa02-4e75-a3c6-ac952ae15701",
-      "amount": 10,
-      "type": "withdraw",
-      "status": "confirmed",
-      "receiverId": "e439d051-ddc0-4727-a609-8596b9676178",
-      "receiverAccountNumber": "0000",
-      "creationDate": "2024-08-06T00:13:12.024Z",
-      "dueDate": "2024-08-06T00:13:12.025Z"
+    "capturedDate": "2024-10-08T00:24:04.644Z"
+  },
+  {
+    "id": "7bea7847-9a39-4bf7-91c1-3d4c26431cb2",
+    "amount": 66.66666666666667,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
     },
-    {
-      "id": "2c68b38a-155a-4f24-abbe-b9234b0244cf",
-      "amount": 500,
-      "type": "withdraw",
-      "status": "confirmed",
-      "receiverId": "c6e26164-e4fb-428d-b409-89b914e53828",
-      "receiverAccountNumber": "0001",
-      "creationDate": "2024-08-06T00:13:31.872Z",
-      "dueDate": "2024-08-06T00:13:31.874Z"
-    }
-  ]
+    "capturedDate": "2024-11-08T00:24:04.644Z"
+  },
+  {
+    "id": "63eab4d0-f891-4a9e-b0f9-d63ba1d3a29f",
+    "amount": 100,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-09-08T00:34:54.354Z"
+  },
+  {
+    "id": "1bbcc034-604a-40d6-8158-e5fe69e21abb",
+    "amount": 100,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-10-08T00:34:54.354Z"
+  },
+  {
+    "id": "5c5f2915-9db0-43af-b514-64fb24858ccc",
+    "amount": 100,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-11-08T00:34:54.354Z"
+  },
+  {
+    "id": "e8049cee-49ea-4d2e-959d-42986364fad2",
+    "amount": 30,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-09-08T00:37:12.230Z"
+  },
+  {
+    "id": "2c1f107a-b27e-4862-a3e5-3742c491f449",
+    "amount": 30,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-10-08T00:37:12.230Z"
+  },
+  {
+    "id": "7e581388-576f-40f7-8f51-e20011939307",
+    "amount": 30,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-11-08T00:37:12.230Z"
+  },
+  {
+    "id": "6363884c-c512-41b7-9788-ba15496f1f60",
+    "amount": 30,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2024-12-08T00:37:12.230Z"
+  },
+  {
+    "id": "cac6a3eb-f4d6-4b2d-8e51-ea5eb5ad3e68",
+    "amount": 30,
+    "type": "payment",
+    "status": "pending",
+    "description": "string",
+    "source": {
+      "receiverDocument": "534543",
+      "receiverAccountNumber": "131231",
+      "sourceId": "0000",
+      "sourceAccountNumber": "987654321"
+    },
+    "capturedDate": "2025-01-08T00:37:12.230Z"
+  }
+]

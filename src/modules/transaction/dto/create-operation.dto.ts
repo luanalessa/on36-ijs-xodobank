@@ -2,26 +2,26 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
 
-export class CreateTransferDto {
+export class CreateOperationDto {
     @IsNumber()
     @ApiProperty()
     amount: number;
 
     @IsString()
     @ApiProperty()
-    senderId: string;
+    receiver: string;
 
     @IsString()
     @ApiProperty()
-    senderAccountNumber: string;
+    receiverAccount: string;
 
     @IsString()
     @ApiProperty()
-    receiverId: string;
+    debtor: string;
 
     @IsString()
     @ApiProperty()
-    receiverAccountNumber: string;
+    debtorAccount: string;
 
     @IsString()
     @ApiProperty()

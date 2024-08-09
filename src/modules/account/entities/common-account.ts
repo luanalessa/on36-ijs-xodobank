@@ -1,4 +1,3 @@
-import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
 import { AccountStatus } from '../enum/account-status.enum';
 import { AccountType } from '../enum/account-type.enum';
 import { Account } from '../interfaces/account.interface';

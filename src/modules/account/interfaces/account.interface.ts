@@ -1,8 +1,8 @@
-import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
 import { AccountStatus } from '../enum/account-status.enum';
 import { AccountType } from '../enum/account-type.enum';
 
 export interface Account {
+    id: string;
     customerId: string;
     type: AccountType;
     accountNumber: string;
@@ -13,6 +13,7 @@ export interface Account {
     outcomes: string[];
 
     status: AccountStatus;
+    cards?: string[];
 
     creationDate: Date;
 }

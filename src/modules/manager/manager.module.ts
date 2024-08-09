@@ -8,11 +8,8 @@ import { ValidateManager } from './middlewares/manager.middleware';
     controllers: [ManagerController],
     providers: [ManagerServices],
 })
-
 export class ManagerModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer
-            .apply(ValidateManager)
-            .forRoutes(ManagerController); 
+        consumer.apply(ValidateManager).forRoutes(ManagerController);
     }
 }
