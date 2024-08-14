@@ -60,7 +60,7 @@ export abstract class AccountServices implements AccountOperations {
 
             account.balance += newTransaction.amount;
             account.incomes.push(newTransaction.id);
-            console.log(account)
+            console.log(account);
             this.accounts[index] = account;
             AccountRepository.write(this.accounts);
 

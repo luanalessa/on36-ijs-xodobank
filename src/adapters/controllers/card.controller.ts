@@ -14,11 +14,10 @@ export class CardController {
     ) {}
 
     @Post('')
-    @ApiQuery({ name: 'accountNumber' })
-    async create(@Query() createCreditCard: CreateCreditCardDto, @Query('accountNumber') accountNumber: string) {
+    async create(@Query() createCreditCard: CreateCreditCardDto) {
         try {
             const card = this.cardService.create(createCreditCard);
-            await this.checkingAccountService.addCard(accountNumber, card.id);
+            await this.checkingAccountService.addCard(createCreditCard.account, card.id);
             return { statusCode: HttpStatus.CREATED, message: 'Credit Card created successfully', data: { card } };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -36,6 +35,18 @@ export class CardController {
             throw new HttpException(error.message, error.status || HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    // @Post('active')
+    // @ApiBody({ type: CreatePurchaseDto })
+    // async active(@Body() createPurchaseDto: CreatePurchaseDto) {
+    //     try {
+    //         // Verifica a compra
+    //         await this.cardService.purchase(createPurchaseDto);
+    //         return { statusCode: HttpStatus.OK, message: 'Purchase processed successfully' };
+    //     } catch (error) {
+    //         throw new HttpException(error.message, error.status || HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     @Get('invoice/:cardId')
     @ApiQuery({ name: 'month', type: Number, description: 'Month of the invoice (1-12)' })

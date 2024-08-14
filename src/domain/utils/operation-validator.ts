@@ -16,8 +16,7 @@ export class OperationValidator {
             observer.notify(EventType.INFOR, `Account ${account.accountNumber} has been activated!`);
         }
 
-        if(transaction.type != TransactionType.deposit) 
-                return this.checkFunds(transaction.type, transaction.amount, account, observer);
+        if (transaction.type != TransactionType.deposit) return this.checkFunds(transaction.type, transaction.amount, account, observer);
         return true;
     }
 

@@ -21,11 +21,11 @@ export class CheckingAccountServices extends AccountServices {
     }
 
     public getAccount(accountNumber: string): { index: number; account: Account } {
-        console.log(accountNumber)
+        console.log(accountNumber);
         const index = this.accounts.findIndex(
             (account: CheckingAccount) => account.accountNumber === accountNumber && account.type === AccountType.Checking,
         );
-        console.log(index)
+        console.log(index);
 
         if (index !== -1) {
             const account = this.accounts[index];

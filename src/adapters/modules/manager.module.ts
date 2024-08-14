@@ -8,7 +8,7 @@ import { ValidateManager } from '../middlewares/manager.middleware';
     controllers: [ManagerController],
     providers: [ManagerServices],
 })
-export class ManagerModule  {
+export class ManagerModule {
     // configure(consumer: MiddlewareConsumer) {
     //     consumer.apply(ValidateManager).forRoutes(ManagerController);
     // }

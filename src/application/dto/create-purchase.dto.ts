@@ -4,10 +4,6 @@ import { CreateOperationDto } from 'src/application/dto/create-operation.dto';
 import { IsEnum, IsNumber, IsString, Length, Min } from 'class-validator';
 
 export class CreatePurchaseDto {
-    @ApiProperty({ enum: CreditCardPaymentType, description: 'Type of payment' })
-    @IsEnum(CreditCardPaymentType)
-    paymentType: CreditCardPaymentType;
-
     @ApiProperty({ example: '4111111111111111', description: 'Credit card number' })
     @IsString()
     @Length(16, 16)
@@ -21,11 +17,6 @@ export class CreatePurchaseDto {
     @IsString()
     @Length(3, 3)
     securityCode: string;
-
-    @ApiProperty({ example: 200, description: 'Amount of the purchase' })
-    @IsNumber()
-    @Min(1)
-    amount: number;
 
     @ApiProperty({ example: 3, description: 'Number of installments for the purchase' })
     @IsNumber()

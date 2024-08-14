@@ -3,12 +3,12 @@ import * as path from 'path';
 import { Account } from '../../domain/interfaces/account.interface';
 
 export class AccountRepository {
-    protected static filePath = path.join(__dirname, '..','repository', 'data', 'accounts.json');
+    protected static filePath = path.join(__dirname, '..', 'repository', 'data', 'accounts.json');
 
     protected static ensureFileExists(): void {
         if (!fs.existsSync(this.filePath)) {
-            fs.mkdirSync(path.dirname(this.filePath), { recursive: true }); 
-            fs.writeFileSync(this.filePath, '[]', 'utf8'); 
+            fs.mkdirSync(path.dirname(this.filePath), { recursive: true });
+            fs.writeFileSync(this.filePath, '[]', 'utf8');
         }
     }
 

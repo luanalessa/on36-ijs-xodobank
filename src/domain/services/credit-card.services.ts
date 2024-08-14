@@ -50,9 +50,9 @@ export class CreditCardService {
     public purchase(purchase: CreatePurchaseDto) {
         const { index, card } = this.getCard(purchase.cardNumber);
 
-        if (card.limit - card.usedLimit - purchase.amount >= 0) {
+        if (card.limit - card.usedLimit - purchase.details.amount >= 0) {
             this.createInstallments(
-                purchase.amount,
+                purchase.details.amount,
                 purchase.installments,
                 card.details.cardHolderName,
                 purchase.details.debtorAccount,
@@ -61,7 +61,7 @@ export class CreditCardService {
                 purchase.details.description,
             );
 
-            this.cards[index].usedLimit += purchase.amount;
+            this.cards[index].usedLimit += purchase.details.amount;
             CardRepository.write(this.cards);
         } else {
             throw new Error(`Your purchase failed because you do not have enough limit.`);
@@ -71,10 +71,10 @@ export class CreditCardService {
     public getInvoice(cardId: string, month: number, year: number): Invoice {
         const { card } = this.getCard(cardId);
 
-        const startDate = new Date(year, month - 2, card.invoiceDay); // Primeiro dia do mês
-        const endDate = new Date(year, month - 1, card.invoiceDay); // Último dia do mês
+        const startDate = new Date(year, month - 2, card.invoiceDay);
+        const endDate = new Date(year, month - 1, card.invoiceDay);
+        console.log(startDate, endDate);
 
-        // Gerar a fatura
         const invoice = this.generateInvoice(cardId, startDate, endDate);
 
         return invoice;
@@ -82,29 +82,25 @@ export class CreditCardService {
 
     private generateInvoice(cardId: string, startDate: Date, endDate: Date): Invoice {
         const { card } = this.getCard(cardId);
+        console.log(card.details.account);
 
         const transactions = TransactionRepository.read();
 
         const invoice = new Invoice(startDate);
-        
-        // Filtrar transações que caem dentro do mês e ano especificados
+
         const monthInvoice = transactions.filter(
             (transaction) =>
-                transaction.source.debtor == card.details.account &&
-                // transaction.capturedDate >= startDate &&
-                // transaction.capturedDate <= endDate &&
+                transaction.source.debtorAccount == card.details.account &&
+                new Date(transaction.capturedDate) >= startDate &&
+                new Date(transaction.capturedDate) <= endDate &&
                 transaction.type === TransactionType.credit_card &&
                 transaction.status === TransactionStatus.pending,
         );
 
-        console.log(monthInvoice);
-        // Calcular o total devido e adicionar as parcelas
         monthInvoice.forEach((transaction) => {
             invoice.totalDue += transaction.amount;
             invoice.installments.push(transaction);
         });
-
-        // Atualizar faturas do cartão
 
         return invoice;
     }

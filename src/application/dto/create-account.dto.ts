@@ -7,6 +7,4 @@ export class CreateAccountDto {
 
     @ApiProperty({ enum: AccountType, enumName: 'AccountType' })
     accountType: AccountType;
-
-    
 }

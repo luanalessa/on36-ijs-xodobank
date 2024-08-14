@@ -17,5 +17,6 @@ export class Invoice {
         this.settlementDate = settlementDate;
         this.totalDue = 0;
         this.totalPaid = 0;
+        this.installments = new Array<Transaction>();
     }
 }
