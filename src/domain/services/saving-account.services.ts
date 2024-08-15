@@ -8,7 +8,7 @@ import { AccountRepository } from '../../infrastructure/repository/account.repos
 
 @Injectable()
 export class SavingAccountServices extends AccountServices {
-    create({ customerId, accountType }: CreateAccountDto): string {
+    create({ customerId, accountType }: CreateAccountDto): Account {
         const num = this.bankServices.accountNumberGenerator();
         const agency = this.bankServices.agency;
 
@@ -17,7 +17,7 @@ export class SavingAccountServices extends AccountServices {
 
         AccountRepository.write(this.accounts);
 
-        return num;
+        return account;
     }
 
     getAccount(accountNumber: string): { index: number; account: Account } {

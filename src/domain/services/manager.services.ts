@@ -11,8 +11,7 @@ export class ManagerServices {
         this.managers = ManagerRepository.read();
     }
 
-    create(user: CreateUserDto): Manager {
-        console.log(user);
+    public create(user: CreateUserDto): Manager {
         const manager = new Manager(user);
         this.managers.push(manager);
         ManagerRepository.write(this.managers);
@@ -20,7 +19,6 @@ export class ManagerServices {
     }
 
     public getManager(id: string): { index: number; manager: Manager } {
-        console.log(id);
         const index = this.managers.findIndex((manager: Manager) => manager.idNumber === id);
 
         if (index !== -1) {

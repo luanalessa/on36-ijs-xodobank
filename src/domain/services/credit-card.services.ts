@@ -15,7 +15,6 @@ export class CreditCardService {
 
     constructor() {
         this.cards = CardRepository.read();
-        console.log(this.cards);
     }
 
     public create({ cardHolderName, password, brand, invoiceDay, account }: CreateCreditCardDto): CreditCard {
@@ -73,7 +72,6 @@ export class CreditCardService {
 
         const startDate = new Date(year, month - 2, card.invoiceDay);
         const endDate = new Date(year, month - 1, card.invoiceDay);
-        console.log(startDate, endDate);
 
         const invoice = this.generateInvoice(cardId, startDate, endDate);
 
@@ -82,7 +80,6 @@ export class CreditCardService {
 
     private generateInvoice(cardId: string, startDate: Date, endDate: Date): Invoice {
         const { card } = this.getCard(cardId);
-        console.log(card.details.account);
 
         const transactions = TransactionRepository.read();
 

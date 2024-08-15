@@ -29,7 +29,7 @@ export abstract class AccountServices implements AccountOperations {
         this.observer.addObserver(logger);
     }
 
-    abstract create({ customerId, accountType }: CreateAccountDto): string;
+    abstract create({ customerId, accountType }: CreateAccountDto): Account;
 
     abstract getAccount(accountNumber: string): { index: number; account: Account };
 
@@ -60,7 +60,6 @@ export abstract class AccountServices implements AccountOperations {
 
             account.balance += newTransaction.amount;
             account.incomes.push(newTransaction.id);
-            console.log(account);
             this.accounts[index] = account;
             AccountRepository.write(this.accounts);
 
@@ -126,6 +125,8 @@ export abstract class AccountServices implements AccountOperations {
         const { account } = this.getAccount(accountNumber);
         if (account) {
             const transactions = TransactionRepository.read();
+            console.log(transactions)
+
             const transaction = transactions.filter((transaction: Transaction) => transaction.source.receiverAccount === accountNumber);
 
             return transaction;

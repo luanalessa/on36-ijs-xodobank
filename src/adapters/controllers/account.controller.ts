@@ -19,13 +19,13 @@ export class AccountController {
     @Post('customer')
     async create(@Query() createAccountDto: CreateAccountDto) {
         try {
-            const accountId =
+            const account =
                 createAccountDto.accountType === AccountType.Checking
                     ? await this.checkingAccountService.create(createAccountDto)
                     : await this.savingAccountService.create(createAccountDto);
 
-            await this.customerServices.addAccount(createAccountDto.customerId, accountId);
-            return { statusCode: HttpStatus.CREATED, message: 'Account created successfully', data: { accountId } };
+            await this.customerServices.addAccount(createAccountDto.customerId, account.accountNumber);
+            return { statusCode: HttpStatus.CREATED, message: 'Account created successfully', data: account  };
         } catch (error) {
             throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }

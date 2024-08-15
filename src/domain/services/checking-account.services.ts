@@ -8,7 +8,7 @@ import { AccountRepository } from '../../infrastructure/repository/account.repos
 
 @Injectable()
 export class CheckingAccountServices extends AccountServices {
-    create({ customerId, accountType }: CreateAccountDto): string {
+    create({ customerId, accountType }: CreateAccountDto): Account {
         const num = this.bankServices.accountNumberGenerator();
         const agency = this.bankServices.agency;
 
@@ -17,15 +17,13 @@ export class CheckingAccountServices extends AccountServices {
 
         AccountRepository.write(this.accounts);
 
-        return num;
+        return account;
     }
 
     public getAccount(accountNumber: string): { index: number; account: Account } {
-        console.log(accountNumber);
         const index = this.accounts.findIndex(
             (account: CheckingAccount) => account.accountNumber === accountNumber && account.type === AccountType.Checking,
         );
-        console.log(index);
 
         if (index !== -1) {
             const account = this.accounts[index];

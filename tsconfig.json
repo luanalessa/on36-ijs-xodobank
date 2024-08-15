@@ -19,7 +19,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
-  "include": ["src/**/*", "test/**/*", "tests/e2e/manager-services.spec.ts", "tests/e2e/customer-service.spec.ts", "src/infrastructure/repository/data" ],
+  "include": ["src/**/*", "test/**/*", "test/e2e/manager-services.spec.ts", "test/e2e/customer-service.spec.ts", "src/infrastructure/repository/data" ],
   "exclude": ["node_modules", "dist"],
   "baseUrl": "./",
   "paths": {
