@@ -29,7 +29,7 @@ export class ManagerServices {
         throw new Error(`Manager with id number ${id} not found.`);
     }
 
-    delete(managerId: string): void {
+    public delete(managerId: string): void {
         this.update(managerId, { isActive: false });
     }
 
@@ -40,7 +40,7 @@ export class ManagerServices {
         ManagerRepository.write(this.managers);
     }
 
-    switchCustomerManagment(customerId: string, newManagerId: string, currentManagerId: string): void {
+    public switchCustomerManagement(customerId: string, newManagerId: string, currentManagerId: string): void {
         const currentManagerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber == currentManagerId);
         const newManagerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber == newManagerId);
 
@@ -51,7 +51,7 @@ export class ManagerServices {
         this.update(newManagerId, { customersId: this.managers[newManagerIndex]['customersId'] });
     }
 
-    addCustomer(customerId: string, managerId: string): void {
+    public addCustomer(customerId: string, managerId: string): void {
         const managerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber === managerId);
 
         this.managers[managerIndex]['customersId'].push(customerId);

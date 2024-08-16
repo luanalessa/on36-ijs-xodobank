@@ -1,18 +1,18 @@
 import { randomUUID } from 'crypto';
+import { Address } from './valueObjects/user-address';
 
 export class User {
     id: string;
     name: string;
     idNumber: string;
-    address: string;
+    address: Address;
     phone: string;
     dateOfBirth: Date;
     email: string;
     password: string;
-
     isActive: boolean;
 
-    constructor(name: string, nationalId: string, address: string, phone: string, dateOfBirth: Date, email: string, password: string) {
+    constructor(name: string, nationalId: string, address: Address, phone: string, dateOfBirth: Date, email: string, password: string) {
         this.id = randomUUID().toString();
         this.idNumber = nationalId;
         this.name = name;
