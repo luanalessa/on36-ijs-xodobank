@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { CustomerServices } from '../../domain/services/customer.services';
 import { ManagerServices } from '../../domain/services/manager.services';
 import { CreateUserDto } from '../dto/create-user.dto';
-import { ICustomerUseCases } from '../interfaces/customer.usecases.interface';
 
 @Injectable()
 export class CustomerUseCases {

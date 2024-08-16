@@ -5,10 +5,9 @@ import { CustomerServices } from '../../domain/services/customer.services';
 import { CreateAccountDto } from '../dto/create-account.dto';
 import { CreateOperationDto } from '../dto/create-operation.dto';
 import { AccountType } from '../../domain/enum/account-type.enum';
-import { IAccountUseCases } from '../interfaces/account.usecases.interface';
 
 @Injectable()
-export class AccountUseCases implements IAccountUseCases{
+export class AccountUseCases{
     constructor(
         private readonly checkingAccountService: CheckingAccountServices,
         private readonly savingAccountService: SavingAccountServices,

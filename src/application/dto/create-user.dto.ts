@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Address } from '../../domain/models/valueObjects/user-address';
 
 export class CreateUserDto {
     @ApiProperty({ example: 'Luana Lessa' })
@@ -7,8 +8,8 @@ export class CreateUserDto {
     @ApiProperty({ example: '12345678901' })
     idNumber: string;
 
-    @ApiProperty({ example: 'Av. João Pessoa 12' })
-    address: string;
+    @ApiProperty()
+    address: Address;
 
     @ApiProperty({ example: '123-456-7890' })
     phone: string;
