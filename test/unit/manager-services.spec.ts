@@ -5,9 +5,10 @@ import { ManagerRepository } from '../../src/infrastructure/repository/manager.r
 import { CreateUserDto } from '../../src/application/dto/create-user.dto';
 import { CustomerRepository } from '../../src/infrastructure/repository/customer.repository';
 import { Customer } from '../../src/domain/models/customer.model';
+import { Address } from '../../src/domain/models/valueObjects/user-address';  // Importando a nova classe Address
 
-jest.mock('../../src/infrastructure/repository/manager.repository'); 
-jest.mock('../../src/infrastructure/repository/customer.repository'); 
+jest.mock('../../src/infrastructure/repository/manager.repository');
+jest.mock('../../src/infrastructure/repository/customer.repository');
 
 describe('ManagerServices', () => {
     let service: ManagerServices;
@@ -19,22 +20,22 @@ describe('ManagerServices', () => {
 
         let managers: Manager[] = [
             new Manager({
-                name: 'John Doe',
+                name: 'João Silva',
                 idNumber: '12345',
-                address: '123 Main St',
+                address: new Address('Rua Principal', '123', 'Cidade Exemplo', 'Estado Exemplo', '12345-678', 'Brasil'),
                 phone: '555-5555',
                 dateOfBirth: new Date('1990-01-01'),
-                email: 'john.doe@example.com',
-                password: 'password',
+                email: 'joao.silva@exemplo.com',
+                password: 'senha123',
             }),
             new Manager({
-                name: 'Jane Doe',
+                name: 'Ana Silva',
                 idNumber: '54321',
-                address: '456 Elm St',
+                address: new Address('Avenida Elm', '456', 'Cidade Exemplo', 'Estado Exemplo', '65432-109', 'Brasil'),
                 phone: '555-5556',
                 dateOfBirth: new Date('1992-02-02'),
-                email: 'jane.doe@example.com',
-                password: 'password123',
+                email: 'ana.silva@exemplo.com',
+                password: 'senha1234',
             }),
         ];
 
@@ -45,13 +46,13 @@ describe('ManagerServices', () => {
 
         const customer = new Customer(
             {
-                name: 'Jane Doe',
+                name: 'Ana Silva',
                 idNumber: '011111',
-                address: '456 Elm St',
+                address: new Address('Avenida Elm', '456', 'Cidade Exemplo', 'Estado Exemplo', '65432-109', 'Brasil'),
                 phone: '555-5556',
                 dateOfBirth: new Date('1992-02-02'),
-                email: 'jane.doe@example.com',
-                password: 'password123',
+                email: 'ana.silva@exemplo.com',
+                password: 'senha1234',
             },
             '12345',
         );
@@ -68,13 +69,13 @@ describe('ManagerServices', () => {
 
     it('should create a manager', () => {
         const createUserDto: CreateUserDto = {
-            name: 'John Doe',
+            name: 'João Silva',
             idNumber: '465465',
-            address: '123 Main St',
+            address: new Address('Rua Principal', '123', 'Cidade Exemplo', 'Estado Exemplo', '12345-678', 'Brasil'),
             phone: '555-5555',
             dateOfBirth: new Date('1990-01-01'),
-            email: 'john.doe@example.com',
-            password: 'password',
+            email: 'joao.silva@exemplo.com',
+            password: 'senha123',
         };
 
         const manager = new Manager(createUserDto);
@@ -119,7 +120,7 @@ describe('ManagerServices', () => {
 
         const newManager = service.getManager('12345').manager;
 
-        service.switchCustomerManagment(customerId, newManager.idNumber, currentManager.idNumber);
+        service.switchCustomerManagement(customerId, newManager.idNumber, currentManager.idNumber);
 
         expect(currentManager.customersId).not.toContain(customerId);
         expect(newManager.customersId).toContain(customerId);
