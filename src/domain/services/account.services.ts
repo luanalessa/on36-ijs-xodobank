@@ -125,7 +125,7 @@ export abstract class AccountServices implements AccountOperations {
         const { account } = this.getAccount(accountNumber);
         if (account) {
             const transactions = TransactionRepository.read();
-            console.log(transactions)
+            console.log(transactions);
 
             const transaction = transactions.filter((transaction: Transaction) => transaction.source.receiverAccount === accountNumber);
 

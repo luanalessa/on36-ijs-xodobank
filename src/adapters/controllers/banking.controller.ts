@@ -1,26 +1,27 @@
-import { BankingServices } from '../../domain/services/banking.services';
+// src/infrastructure/controllers/banking.controller.ts
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { BankingUseCases } from '../../application/usecases/banking.usecase';
 
 @ApiTags('Banking')
 @Controller('banking')
 export class BankingController {
-    constructor(private readonly services: BankingServices) {}
+    constructor(private readonly bankingUseCases: BankingUseCases) {}
 
     @Get('managers')
     @ApiQuery({ name: 'managerId', type: String, required: false })
-    getManagers(@Query('managerId') managerId: string) {
-        return this.services.getManagers(managerId);
+    async getManagers(@Query('managerId') managerId: string) {
+        return await this.bankingUseCases.getManagers(managerId);
     }
 
     @Get('customers')
     @ApiQuery({ name: 'customerId', type: String, required: false })
-    getCustomers(@Query('customerId') customerId: string) {
-        return this.services.getCustomers(customerId);
+    async getCustomers(@Query('customerId') customerId: string) {
+        return await this.bankingUseCases.getCustomers(customerId);
     }
 
     @Get('accounts')
-    getAccounts() {
-        return this.services.getAccounts();
+    async getAccounts() {
+        return await this.bankingUseCases.getAccounts();
     }
 }

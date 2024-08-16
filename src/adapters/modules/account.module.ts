@@ -5,10 +5,11 @@ import { SavingAccountServices } from '../../domain/services/saving-account.serv
 import { SavingAccount } from '../../domain/models/saving-account.model';
 import { CheckingAccount } from '../../domain/models/checking-account.model';
 import { CustomerServices } from '../../domain/services/customer.services';
+import { AccountUseCases } from '../../application/usecases/account.usecase';
 
 @Module({
     imports: [],
     controllers: [AccountController],
-    providers: [CheckingAccountServices, SavingAccountServices, CheckingAccount, SavingAccount, CustomerServices],
+    providers: [AccountUseCases, CheckingAccountServices, SavingAccountServices, CheckingAccount, SavingAccount, CustomerServices],
 })
 export class AccountModule {}
