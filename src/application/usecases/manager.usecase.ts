@@ -4,7 +4,7 @@ import { ManagerServices } from '../../domain/services/manager.services';
 import { CreateUserDto } from '../dto/create-user.dto';
 
 @Injectable()
-export class ManagerUseCases  {
+export class ManagerUseCases {
     constructor(private readonly managerService: ManagerServices) {}
 
     async createManager(manager: CreateUserDto): Promise<any> {

@@ -4,9 +4,6 @@ import { OperationValidator } from '../utils/operation-validator';
 import { AccountOperations } from '../interfaces/account-operations.interface';
 import { Account } from '../interfaces/account.interface';
 import { TransactionServices } from './transaction.services';
-import { NotificationService } from './notification/notification.services';
-import { Logger } from './notification/observers/logger.observer';
-import { EventType } from './notification/enum/event-type.enum';
 import { CreateAccountDto } from '../../application/dto/create-account.dto';
 import { BankingServices } from './banking.services';
 import { AccountStatus } from '../enum/account-status.enum';
@@ -14,22 +11,20 @@ import { TransactionRepository } from '../../infrastructure/repository/transacti
 import { AccountOperationDetails } from '../models/valueObjects/account-operation-details';
 import { CreateOperationDto } from '../../application/dto/create-operation.dto';
 import { TransactionType } from '../enum/transaction-type.enum';
+import { Address } from '../models/valueObjects/user-address';
 
 export abstract class AccountServices implements AccountOperations {
     protected accounts: Account[];
     protected bankServices: BankingServices;
 
-    private observer: NotificationService = new NotificationService();
     private validator: OperationValidator = new OperationValidator();
 
     constructor() {
         this.bankServices = new BankingServices();
         this.accounts = AccountRepository.read();
-        const logger = new Logger();
-        this.observer.addObserver(logger);
     }
 
-    abstract create({ customerId, accountType }: CreateAccountDto): Account;
+    abstract create({ holderDocument, accountType }: CreateAccountDto, address?: Address): Account;
 
     abstract getAccount(accountNumber: string): { index: number; account: Account };
 
@@ -54,7 +49,7 @@ export abstract class AccountServices implements AccountOperations {
             new AccountOperationDetails(null, null, transaction.receiver, transaction.receiverAccount),
         );
 
-        if (account && this.validator.validate(newTransaction, account, this.observer)) {
+        if (account && this.validator.validate(newTransaction, account)) {
             const service = new TransactionServices(newTransaction);
             service.record();
 
@@ -62,8 +57,6 @@ export abstract class AccountServices implements AccountOperations {
             account.incomes.push(newTransaction.id);
             this.accounts[index] = account;
             AccountRepository.write(this.accounts);
-
-            this.observer.notify(EventType.INFOR, `You received a new deposit of R$ ${newTransaction.amount}.`);
         }
     }
 
@@ -77,7 +70,7 @@ export abstract class AccountServices implements AccountOperations {
             new AccountOperationDetails(transaction.debtor, transaction.debtorAccount, null, null),
         );
 
-        if (account && this.validator.validate(newTransaction, account, this.observer)) {
+        if (account && this.validator.validate(newTransaction, account)) {
             const service = new TransactionServices(newTransaction);
             service.record();
 
@@ -86,7 +79,6 @@ export abstract class AccountServices implements AccountOperations {
 
             this.accounts[index] = account;
             AccountRepository.write(this.accounts);
-            this.observer.notify(EventType.INFOR, `Your withdraw of R$ ${newTransaction.amount} has been successfully completed.`);
         }
     }
 
@@ -101,7 +93,7 @@ export abstract class AccountServices implements AccountOperations {
             new AccountOperationDetails(transaction.debtor, transaction.debtorAccount, transaction.receiver, transaction.receiverAccount),
         );
 
-        if (debtorAccount && receiverAccount && this.validator.validate(newTransaction as Transaction, debtorAccount, this.observer)) {
+        if (debtorAccount && receiverAccount && this.validator.validate(newTransaction as Transaction, debtorAccount)) {
             const service = new TransactionServices(newTransaction);
 
             service.record();
@@ -116,8 +108,6 @@ export abstract class AccountServices implements AccountOperations {
             this.accounts[receiverIndex] = receiverAccount;
 
             AccountRepository.write(this.accounts);
-
-            this.observer.notify(EventType.INFOR, `Your transfer of ${transaction.amount} has been completed!`);
         }
     }
 
@@ -125,7 +115,6 @@ export abstract class AccountServices implements AccountOperations {
         const { account } = this.getAccount(accountNumber);
         if (account) {
             const transactions = TransactionRepository.read();
-            console.log(transactions);
 
             const transaction = transactions.filter((transaction: Transaction) => transaction.source.receiverAccount === accountNumber);
 

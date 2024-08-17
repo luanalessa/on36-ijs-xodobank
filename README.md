@@ -4,7 +4,7 @@
 </p>
 <p align = "center">
    <img src="https://img.shields.io/badge/autor-luanalessa-BFBF5E?style=flat-square" />
-   <img src="https://img.shields.io/badge/semana-01-BFBF5E?style=flat-square" />
+   <img src="https://img.shields.io/badge/semana-06-BFBF5E?style=flat-square" />
    <img src="https://img.shields.io/github/languages/count/luanalessa/ts-backend-template?color=BFBF5E&style=flat-square" />
 </p>
 
@@ -34,8 +34,8 @@ Sabendo disso, a comunidade da { reprograma } decidiu criar um banco comunitári
 ## ✅ Checklist Serviços
 
 - [ ] Crédito para financiamento de empreendimentos solidários.
-- [ ] Crédito para consumo pessoal e familiar, sem juros.
-- [ ] Cartão de crédito popular solidário.
+- [x] Crédito para consumo pessoal e familiar.
+- [x] Cartão de crédito popular solidário.
 - [x] Abertura e extrato de conta corrente.
 - [x] Depósito em conta corrente.
 - [x] Saque avulso ou com cartão magnético.

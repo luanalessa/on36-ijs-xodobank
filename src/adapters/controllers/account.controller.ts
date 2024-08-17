@@ -8,11 +8,9 @@ import { AccountUseCases } from '../../application/usecases/account.usecase';
 @ApiTags('Account Operations')
 @Controller('account')
 export class AccountController {
-    constructor(
-        private readonly accountUseCases: AccountUseCases,
-    ) {}
+    constructor(private readonly accountUseCases: AccountUseCases) {}
 
-    @Post('customer')
+    @Post('')
     async create(@Query() createAccountDto: CreateAccountDto) {
         try {
             const account = await this.accountUseCases.createAccount(createAccountDto);

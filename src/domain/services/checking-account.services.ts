@@ -8,11 +8,11 @@ import { AccountRepository } from '../../infrastructure/repository/account.repos
 
 @Injectable()
 export class CheckingAccountServices extends AccountServices {
-    create({ customerId, accountType }: CreateAccountDto): Account {
+    create({ holderDocument, accountType }: CreateAccountDto): Account {
         const num = this.bankServices.accountNumberGenerator();
         const agency = this.bankServices.agency;
 
-        const account = new CheckingAccount(customerId, accountType, num, agency);
+        const account = new CheckingAccount(holderDocument, accountType, num, agency);
         this.accounts.push(account);
 
         AccountRepository.write(this.accounts);

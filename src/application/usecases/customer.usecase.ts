@@ -8,7 +8,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 export class CustomerUseCases {
     constructor(
         private readonly customerService: CustomerServices,
-        private readonly managerService: ManagerServices
+        private readonly managerService: ManagerServices,
     ) {}
 
     async createCustomer(managerId: string, customer: CreateUserDto): Promise<any> {

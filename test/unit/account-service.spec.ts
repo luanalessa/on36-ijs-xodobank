@@ -57,7 +57,7 @@ describe.only('AccountService', () => {
 
     it('should create an account', () => {
         const createAccountDto: CreateAccountDto = {
-            customerId: '12345678900',
+            holderDocument: '12345678900',
             accountType: AccountType.Savings,
         };
 

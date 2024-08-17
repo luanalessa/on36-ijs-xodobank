@@ -3,7 +3,7 @@ import { AccountType } from '../enum/account-type.enum';
 
 export interface Account {
     id: string;
-    customerId: string;
+    holderDocument: string;
     type: AccountType;
     accountNumber: string;
     agency: string;

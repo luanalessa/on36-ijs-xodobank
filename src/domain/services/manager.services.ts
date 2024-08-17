@@ -53,7 +53,6 @@ export class ManagerServices {
 
     public addCustomer(customerId: string, managerId: string): void {
         const managerIndex = this.managers.findIndex((manager: Manager) => manager.idNumber === managerId);
-
         this.managers[managerIndex]['customersId'].push(customerId);
         this.update(managerId, { customersId: this.managers[managerIndex]['customersId'] });
     }

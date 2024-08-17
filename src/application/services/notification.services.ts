@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Observer } from './interfaces/observer.interface';
-import { EventType } from './enum/event-type.enum';
+import { Observer } from './notification/interfaces/observer.interface';
+import { EventType } from '../enum/event-type.enum';
 
 @Injectable()
 export class NotificationService {

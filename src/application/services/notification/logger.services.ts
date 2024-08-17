@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Observer } from '../interfaces/observer.interface';
-import { EventType } from '../enum/event-type.enum';
+import { Observer } from './interfaces/observer.interface';
+import { EventType } from '../../enum/event-type.enum';
 import { green, yellow, red } from 'colorette';
 
 @Injectable()

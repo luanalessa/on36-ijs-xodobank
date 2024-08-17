@@ -5,7 +5,7 @@ import { randomUUID } from 'crypto';
 
 export abstract class CommonAccount implements Account {
     id: string;
-    customerId: string;
+    holderDocument: string;
     type: AccountType;
     accountNumber: string;
     agency: string;
@@ -19,9 +19,9 @@ export abstract class CommonAccount implements Account {
     creationDate: Date;
     accountType: AccountType;
 
-    constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
+    constructor(holderDocument: string, accountType: AccountType, accountNumber: string, agency: string) {
         this.id = randomUUID().toString();
-        this.customerId = customerId;
+        this.holderDocument = holderDocument;
         this.type = accountType;
         this.accountNumber = accountNumber;
         this.agency = agency;
