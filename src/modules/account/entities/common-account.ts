@@ -1,17 +1,18 @@
-import { Transaction } from 'src/modules/transaction/entities/transaction.entity';
 import { AccountStatus } from '../enum/account-status.enum';
 import { AccountType } from '../enum/account-type.enum';
 import { Account } from '../interfaces/account.interface';
+import { randomUUID } from 'crypto';
 
 export abstract class CommonAccount implements Account {
+    id: string;
     customerId: string;
     type: AccountType;
     accountNumber: string;
     agency: string;
 
     balance: number;
-    incomes: Transaction[];
-    outcomes: Transaction[];
+    incomes: string[];
+    outcomes: string[];
 
     status: AccountStatus;
 
@@ -19,6 +20,7 @@ export abstract class CommonAccount implements Account {
     accountType: AccountType;
 
     constructor(customerId: string, accountType: AccountType, accountNumber: string, agency: string) {
+        this.id = randomUUID().toString();
         this.customerId = customerId;
         this.type = accountType;
         this.accountNumber = accountNumber;

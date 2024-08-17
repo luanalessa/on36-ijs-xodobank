@@ -3,11 +3,21 @@ import { AccountServices } from './account.services';
 import { SavingAccount } from '../entities/saving-account';
 import { AccountType } from '../enum/account-type.enum';
 import { Account } from '../interfaces/account.interface';
+import { AccountDto } from '../dto/account.dto';
+import { AccountRepository } from 'src/repository/account.repository';
 
 @Injectable()
 export class SavingAccountServices extends AccountServices {
-    createAccount(customerId: string, accountType: AccountType, accountNumber: string, agency: string): Account {
-        return new SavingAccount(customerId, accountType, accountNumber, agency);
+    create({ customerId, accountType }: AccountDto): string {
+        const num = this.bankServices.accountNumberGenerator();
+        const agency = this.bankServices.agency;
+
+        const account = new SavingAccount(customerId, accountType, num, agency);
+        this.accounts.push(account);
+
+        AccountRepository.write(this.accounts);
+
+        return num;
     }
 
     getAccount(accountNumber: string): { index: number; account: Account } {

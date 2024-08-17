@@ -6,12 +6,12 @@ export class BankingServices {
     private _agency: string = '01';
 
     public getAccounts() {
-        const accounts = AccountRepository.readAccounts();
+        const accounts = AccountRepository.read();
         return accounts;
     }
 
     public getCustomers(customerId?: string) {
-        const customers = CustomerRepository.readCustomers();
+        const customers = CustomerRepository.read();
 
         if (customerId) return customers.filter((customer) => customer.idNumber === customerId);
 
@@ -19,7 +19,7 @@ export class BankingServices {
     }
 
     public getManagers(managerId?: string) {
-        const managers = ManagerRepository.readManagers();
+        const managers = ManagerRepository.read();
 
         if (managerId) return managers.filter((manager) => manager.idNumber === managerId);
 

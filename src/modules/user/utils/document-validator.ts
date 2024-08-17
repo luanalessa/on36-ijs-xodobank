@@ -41,8 +41,8 @@ export class DocumentValidator {
             weight = weight === 2 ? 9 : weight - 1;
         }
 
-        const rest = (sum * 10) % 11;
-        const checkDigit = rest >= restLimit ? 0 : rest;
+        const rest = sum % 11;
+        const checkDigit = rest < 2 ? 0 : 11 - rest;
         return checkDigit === arr[checkDigitIndex];
     }
 }

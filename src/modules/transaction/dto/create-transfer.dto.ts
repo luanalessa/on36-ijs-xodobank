@@ -17,10 +17,6 @@ export class CreateTransferDto {
 
     @IsString()
     @ApiProperty()
-    senderAccountType: string;
-
-    @IsString()
-    @ApiProperty()
     receiverId: string;
 
     @IsString()
@@ -29,5 +25,5 @@ export class CreateTransferDto {
 
     @IsString()
     @ApiProperty()
-    receiverAccountType: string;
+    description: string;
 }
